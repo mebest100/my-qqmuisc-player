@@ -1,0 +1,32 @@
+#app,.recommend,.player,.normal-player,.rank,
+.normal-player .middle,.mini-player,.music-list,
+.music-list .list,.singer,.shortcut-wrapper,
+.search-result,.add-song,.user-center {
+  max-width: 540px!important;
+  min-width: 320px!important;
+  margin: 0 auto!important;
+}
+@media screen and (max-width: 1200px) {
+  .phone {
+    display: none;
+  }
+}
+.phone {
+  position: fixed;
+  width: 200px;
+  left: 100px;
+}
+.phone img {
+    display: block;
+  margin-top: 100px;
+  width: 200px;
+  height: 200px;
+}
+.phone span {
+  width: 200px;
+  text-align: center;
+  display: block;
+  margin-top: 20px;
+  font-size: 20px;
+  color: #ffcd32;
+}
