@@ -9,85 +9,79 @@ const headers = {
 
 
 module.exports = {
-    publicPath: "./",
-    outputDir: 'dist',
-    assetsDir: 'static',
+  publicPath: "/",
+  outputDir: "dist",
+  assetsDir: "static",
 
-    devServer: {
-        port: 8082,
-        proxy: {
-            '/api/getRecommend': {
-                target: 'http://127.0.0.1:3300/recommend/banner',
-                changeOrigin: true, //允许跨域,
-                pathRewrite: {
-                    '^/api/getRecommend': '',
-                }
+  devServer: {
+    port: 8082,
+    proxy: {
+      "/api/getRecommend": {
+        target: "http://127.0.0.1:3300/recommend/banner",
+        changeOrigin: true, //允许跨域,
+        pathRewrite: {
+          "^/api/getRecommend": "",
+        },
+      },
 
-            },
+      "/api/getDiscList": {
+        target: "http://127.0.0.1:3300/recommend/playlist/u",
+        changeOrigin: true, //允许跨域,
+        pathRewrite: {
+          "^/api/getDiscList": "",
+        },
+      },
 
-            '/api/getDiscList': {
-                target: 'http://127.0.0.1:3300/recommend/playlist/u',
-                changeOrigin: true, //允许跨域,
-                pathRewrite: {
-                    '^/api/getDiscList': '',
-                }
+      "/api/getSongList": {
+        target: "http://127.0.0.1:3300/songlist",
+        changeOrigin: true, //允许跨域,
+        pathRewrite: {
+          "^/api/getSongList": "",
+        },
+      },
+      "/api/getSong": {
+        target: "http://127.0.0.1:3300/song/urls",
+        // target: 'https://api.zsfmyz.top/music/song',
+        changeOrigin: true, //允许跨域,
+        pathRewrite: {
+          "^/api/getSong": "",
+        },
+      },
 
-            },
+      "/api/lyric": {
+        target: "https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg",
+        changeOrigin: true, //允许跨域,
+        headers: {
+          referer: "https://c.y.qq.com/",
+          host: "c.y.qq.com",
+        },
+        pathRewrite: {
+          "^/api/lyric": "",
+        },
+      },
 
-            '/api/getSongList': {
-                target: 'http://127.0.0.1:3300/songlist',
-                changeOrigin: true, //允许跨域,
-                pathRewrite: {
-                    '^/api/getSongList': '',
-                }
-            },
-            '/api/getSong': {
-                target: 'https://api.zsfmyz.top/music/song',
-                changeOrigin: true, //允许跨域,
-                pathRewrite: {
-                    '^/api/getSong': '',
-                }
-            },
-
-            '/api/lyric': {
-                target: 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg',
-                changeOrigin: true, //允许跨域,
-                headers: {
-                    referer: 'https://c.y.qq.com/',
-                    host: 'c.y.qq.com'
-                },
-                pathRewrite: {
-                    '^/api/lyric': '',
-                }
-            },
-
-            '/api/search': {
-                target: 'https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp',
-                changeOrigin: true, //允许跨域,
-                headers: headers,
-                pathRewrite: {
-                    '^/api/search': '',
-                }
-            }
-        }
+      "/api/search": {
+        target: "https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp",
+        changeOrigin: true, //允许跨域,
+        headers: headers,
+        pathRewrite: {
+          "^/api/search": "",
+        },
+      },
     },
-    configureWebpack: {
-        resolve: {
-            extensions: ['.js', '.css', '.vue'],
-            alias: {
-                'assets': '@/assets',
-                'static': '@/static',
-                'components': '@/components',
-                'base': '@/base',
-                'api': '@/api',
-                'common': '@/common'
-
-            }
-        }
+  },
+  configureWebpack: {
+    resolve: {
+      extensions: [".js", ".css", ".vue"],
+      alias: {
+        assets: "@/assets",
+        static: "@/static",
+        components: "@/components",
+        base: "@/base",
+        api: "@/api",
+        common: "@/common",
+      },
     },
-
-
-
-
-}
+  },
+};
 

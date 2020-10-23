@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import DetailTest from 'components/detailTest/DetailTest.vue'
+import Forecast from "components/detailTest/Forecast.vue";
+import Analysis from "components/detailTest/Analysis.vue";
 
 Vue.use(Router)
 
@@ -52,55 +55,77 @@ const UserCenter = (resolve) => {
 }
 
 export default new Router({
-  mode:'history',
+  mode: "history",
   routes: [
     {
-      path: '/',
-      redirect: '/recommend'
+      path: "/",
+      redirect: "/recommend",
     },
     {
-      path: '/recommend',
+      path: "/recommend",
       component: Recommend,
       children: [
         {
-          path: ':id',
-          component: Disc
-        }
-      ]
+          path: ":id",
+          component: Disc,
+        },
+      ],
     },
     {
-      path: '/singer',
+      path: "/singer",
       component: Singer,
       children: [
         {
-          path: ':id',
-          component: SingerDetail
-        }
-      ]
+          path: ":id",
+          component: SingerDetail,
+        },
+      ],
     },
     {
-      path: '/rank',
+      path: "/rank",
       component: Rank,
       children: [
         {
-          path: ':id',
-          component: TopList
-        }
-      ]
+          path: ":id",
+          component: TopList,
+        },
+      ],
     },
     {
-      path: '/search',
+      path: "/search",
       component: Search,
       children: [
         {
-          path: ':id',
-          component: SingerDetail
-        }
-      ]
+          path: ":id",
+          component: SingerDetail,
+        },
+      ],
     },
     {
-      path: '/user',
-      component: UserCenter
-    }
-  ]
-})
+      path: "/user",
+      component: UserCenter,
+    },
+    {
+      path: "/detailtest",
+      name: 'DetailTest',
+      component: DetailTest,
+      redirect: "/detailtest/forecast",
+      children: [
+        {
+          path: "/",
+          redirect: "forecast",
+        },
+        {
+          path: "forecast",
+          component: Forecast,
+          name: "Forecast",
+        },
+        {
+          path: "analysis",
+          component: Analysis,
+          name: "Analysis",
+        },
+      ],
+    },
+  ],
+});

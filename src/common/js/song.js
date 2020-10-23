@@ -36,12 +36,14 @@ export async function getSong(mid) {
 
   return await axios.get(url, {
     params: {
-      songmid: mid,
-      guid: 85640610
+      // songmid: mid,
+      // guid: 85640610
+      id: mid,
     }
   }).then((res) => {
     // console.log(res.data.data);
-    let songurl = res.data.data.musicUrl
+    // let songurl = res.data.data.musicUrl 
+    let songurl = res.data.data[mid]
     // console.log(songurl);
     return songurl
   })

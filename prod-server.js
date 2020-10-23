@@ -2,6 +2,7 @@ const express = require('express')
 const axios = require('axios')
 const app = express()
 const apiRouter = express.Router()
+const history = require("connect-history-api-fallback");
 
 
 const headers = {
@@ -62,7 +63,8 @@ apiRouter.get('/getSonglist', function (req, res) {
 })
 
 apiRouter.get('/getSong', function (req, res) {
-    var url = 'https://api.zsfmyz.top/music/song'
+    var url = "http://127.0.0.1:3300/song/urls";
+    // var url = 'https://api.zsfmyz.top/music/song'
     axios.get(url, {
         params: req.query
     }).then((response) => {
@@ -96,7 +98,7 @@ apiRouter.get('/lyric', function (req, res) {
     })
 })
 
-
+app.use(history())
 app.use('/api', apiRouter)
 app.use(express.static('./dist'))
 
