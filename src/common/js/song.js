@@ -54,8 +54,9 @@ export async function getSong(mid) {
 export async function createSong(musicData) {
   let songUrl = '123'
   await getSong(musicData.songmid).then((data) => {
-    return Promise.resolve(data)
-  }).then((res) => { songUrl = res })
+    //注意getSong并不是axios函数，虽然其返回的是一个promise对象，但不需要用res.data的形式去去数据。
+    songUrl = data;
+  })
 
   // console.log('----------------------------------------');
   // console.log(songUrl)
