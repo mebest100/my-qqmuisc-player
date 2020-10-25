@@ -184,7 +184,7 @@ export default {
             });
           }
         });
-        //此处是关键！！！！！
+        //此处是数组ret值能正确返回出去的关键！！！！！
         setTimeout(() => {
           resolve(ret);
         }, 500);
