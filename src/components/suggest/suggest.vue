@@ -163,6 +163,9 @@ export default {
       }
       if (data.song) {
         let songs = await this._normalizeSongs(data.song.list);
+        console.log(
+          songs
+        );
         ret = ret.concat(songs);
       }
 
