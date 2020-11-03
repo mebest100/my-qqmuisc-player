@@ -4,7 +4,7 @@ const app = express()
 const apiRouter = express.Router()
 const history = require("connect-history-api-fallback");
 
-
+//运行之前：一定要先npm build编译，否则会出现莫名其妙的一些错误。
 const headers = {
   host: 'i.y.qq.com',
   referer: 'https://i.y.qq.com/n2/m/',
