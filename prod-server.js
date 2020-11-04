@@ -2,6 +2,7 @@ const express = require('express')
 const axios = require('axios')
 const app = express()
 const apiRouter = express.Router()
+const open = require('open');
 const history = require("connect-history-api-fallback");
 
 //运行之前：一定要先npm build编译，否则会出现莫名其妙的一些错误。
@@ -123,6 +124,7 @@ module.exports = (() => {
 				console.log(`分配新端口${newport}，Listening on http://localhost:${newport}\n`);
             }
             console.log(`${newport}端口可用，Listening on http://localhost:${newport}\n`);
+            open(`http://localhost:${newport}`,"chrome")
         });
     });
 })();

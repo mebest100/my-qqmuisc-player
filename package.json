@@ -41,7 +41,8 @@
     "@vue/cli-service": "~4.5.0",
     "connect-history-api-fallback": "^1.6.0",
     "http-proxy-middleware": "^0.17.3",
-    "node-libs-browser": "^2.2.1"
+    "node-libs-browser": "^2.2.1",
+    "open": "^7.3.0"
   },
   "browserslist": [
     "> 1%",
