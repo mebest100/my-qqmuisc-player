@@ -120,8 +120,9 @@ module.exports = (() => {
 
             if( newport !== port) {
                 console.log(`预定端口${port}被占用！`);
+				console.log(`分配新端口${newport}，Listening on http://localhost:${newport}\n`);
             }
-            console.log(`分配新端口${newport}，Listening on http://localhost:${newport}\n`);
+            console.log(`${newport}端口可用，Listening on http://localhost:${newport}\n`);
         });
     });
 })();
