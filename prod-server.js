@@ -6,10 +6,10 @@ const history = require("connect-history-api-fallback");
 
 //运行之前：一定要先npm build编译，否则会出现莫名其妙的一些错误。
 const headers = {
-  host: 'i.y.qq.com',
-  referer: 'https://i.y.qq.com/n2/m/',
-  'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1',
-  cookie: '_ga=GA1.2.1634646802.1582977621; pgv_pvid=9083335840; pgv_pvi=3690052608; RK=Z3YNFdUScP; ptcz=11c486385bcc91adb7a6bb89a2857ec7440fdca98508e4635ed1f8f2575865c2; tvfe_boss_uuid=cc3c60de5dd9367f; pt_sms_phone=189******60; pac_uid=0_af94bd847d197; XWINDEXGREY=0; ptui_loginuin=93303072; ts_refer=ADTAGmyqq; ts_uid=6622604064; psrf_qqunionid=; tmeLoginType=2; psrf_qqaccess_token=45ECC6265941E36B1D45BAC2B8CF9E2C; psrf_access_token_expiresAt=1606279281; psrf_qqrefresh_token=74AD21E9DE7CA9F3A4B71206265583F0; uin=1296538920; euin=oK-q7w4iNeEAon**; psrf_qqopenid=C9807D151EB8A2D399DB0A96EDBD574F; yq_index=0; userAction=1; yqq_stat=0; pgv_info=ssid=s1753859976; ts_last=y.qq.com/; pgv_si=s237346816'
+    host: 'i.y.qq.com',
+    referer: 'https://i.y.qq.com/n2/m/',
+    'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1',
+    cookie: '_ga=GA1.2.1634646802.1582977621; pgv_pvid=9083335840; pgv_pvi=3690052608; RK=Z3YNFdUScP; ptcz=11c486385bcc91adb7a6bb89a2857ec7440fdca98508e4635ed1f8f2575865c2; tvfe_boss_uuid=cc3c60de5dd9367f; pt_sms_phone=189******60; pac_uid=0_af94bd847d197; XWINDEXGREY=0; ptui_loginuin=93303072; ts_refer=ADTAGmyqq; ts_uid=6622604064; psrf_qqunionid=; tmeLoginType=2; psrf_qqaccess_token=45ECC6265941E36B1D45BAC2B8CF9E2C; psrf_access_token_expiresAt=1606279281; psrf_qqrefresh_token=74AD21E9DE7CA9F3A4B71206265583F0; uin=1296538920; euin=oK-q7w4iNeEAon**; psrf_qqopenid=C9807D151EB8A2D399DB0A96EDBD574F; yq_index=0; userAction=1; yqq_stat=0; pgv_info=ssid=s1753859976; ts_last=y.qq.com/; pgv_si=s237346816'
 }
 
 
@@ -104,10 +104,24 @@ app.use(express.static('./dist'))
 
 const port = 9000
 
-module.exports = app.listen(port,(err)=> {
-    if (err) {
-        console.log(err);
-        return
-    }
-    console.log('Listening on http://localhost:' + port + '\n');
-})
+const portfinder = require("portfinder");
+module.exports = (() => {
+    portfinder.basePort = port
+    portfinder.getPort((err, newport) => {
+        if (err) {
+            return;
+        }
+
+        app.listen(newport, error => {
+            if (error) {
+                console.log(error);
+                return;
+            }
+
+            if( newport !== port) {
+                console.log(`预定端口${port}被占用！`);
+            }
+            console.log(`分配新端口${newport}，Listening on http://localhost:${newport}\n`);
+        });
+    });
+})();
