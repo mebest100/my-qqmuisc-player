@@ -76,6 +76,7 @@ export default {
   },
   watch: {
     percent(newPercent) {
+      //拖动未结束之前，不得修改播放进度条和播放按钮的最终状态。
       if (newPercent >= 0 && !this.touch.initiated) {
         const barWidth = this.$refs.progressBar.clientWidth - progressBtnWidth;
         const offsetWidth = newPercent * barWidth;
