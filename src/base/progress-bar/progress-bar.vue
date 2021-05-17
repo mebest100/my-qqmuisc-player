@@ -13,11 +13,10 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
-  import {prefixStyle} from 'common/js/dom'
+<script type="text/ecmascript-6"> 
 
   const progressBtnWidth = 16
-  const transform = prefixStyle('transform')
+
 
   export default {
     props: {
@@ -25,23 +24,19 @@
         type: Number,
         default: 0
       }
-    },
-    created() {
-      this.touch = {}
-    },
+    },   
     methods: {
       progressTouchStart(e) {
         this.touch.initiated = true
-        this.touch.startX = e.touches[0].pageX
-        this.touch.left = this.$refs.progress.clientWidth
+     
       },
       progressTouchMove(e) {
         if (!this.touch.initiated) {
           return
         }
-        const deltaX = e.touches[0].pageX - this.touch.startX
-        const offsetWidth = Math.min(this.$refs.progressBar.clientWidth - progressBtnWidth, Math.max(0, this.touch.left + deltaX))
-        this._offset(offsetWidth)
+        const btnOffset = e.touches[0].pageX - this.checkOffset(this.$refs.progressBar,"offsetLeft")
+        const offsetWidth = Math.min(this.$refs.progressBar.clientWidth - progressBtnWidth, Math.max(0, btnOffset))
+        this.setNewOffset(offsetWidth)
       },
       progressTouchEnd() {
         this.touch.initiated = false
@@ -50,9 +45,9 @@
       progressClick(e) {
         const rect = this.$refs.progressBar.getBoundingClientRect()
         const offsetWidth = e.pageX - rect.left
-        this._offset(offsetWidth)
+        this.setNewOffset(offsetWidth)
         // 这里当我们点击 progressBtn 的时候，e.offsetX 获取不对
-        // this._offset(e.offsetX)
+        // this.setNewOffset(e.offsetX)
         this._triggerPercent()
       },
       _triggerPercent() {
@@ -60,9 +55,17 @@
         const percent = this.$refs.progress.clientWidth / barWidth
         this.$emit('percentChange', percent)
       },
-      _offset(offsetWidth) {
+      setNewOffset(offsetWidth) {
         this.$refs.progress.style.width = `${offsetWidth}px`
-        this.$refs.progressBtn.style[transform] = `translate3d(${offsetWidth}px,0,0)`
+        this.$refs.progressBtn.style.left = `${offsetWidth - 8}px`
+      },
+      checkOffset(element, offsetType) {
+           let curOffset = element[offsetType]
+           while ( element = element.offsetParent) {
+             curOffset  += element[offsetType]
+           }
+
+           return curOffset
       }
     },
     watch: {
@@ -70,7 +73,7 @@
         if (newPercent >= 0 && !this.touch.initiated) {
           const barWidth = this.$refs.progressBar.clientWidth - progressBtnWidth
           const offsetWidth = newPercent * barWidth
-          this._offset(offsetWidth)
+          this.setNewOffset(offsetWidth)
         }
       }
     }
