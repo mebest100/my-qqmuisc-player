@@ -61,11 +61,12 @@ module.exports = {
       },
 
       "/api/search": {
-        target: "https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp",
+        target: "http://127.0.0.1:3900",
+        // target: "https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp",
         changeOrigin: true, //允许跨域,
-        headers: headers,
+        // headers: headers,
         pathRewrite: {
-          "^/api/search": "",
+          "^/api/search": "/search",
         },
       },
     },
