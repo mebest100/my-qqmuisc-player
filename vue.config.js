@@ -40,13 +40,15 @@ module.exports = {
         },
       },
       "/api/getSongNetEase": {
+        //vue.config.js中路由匹配是从上到下的，所以api/getSongNetEase必须放在api/getSong的前面，否则会出现404错误
+        //因为一旦匹配到了api/getSong了，后面的路由规则就不会继续匹配了
         target: "http://127.0.0.1:3900",
         changeOrigin: true, //允许跨域,
         pathRewrite: {
           "^/api/getSongNetEase": "/song/url",
         },
       },
-      
+
       "/api/getSong": {
         target: "http://127.0.0.1:3300/song/urls",
         // target: 'https://api.zsfmyz.top/music/song',
