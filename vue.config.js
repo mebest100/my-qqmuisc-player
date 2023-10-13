@@ -39,6 +39,14 @@ module.exports = {
           "^/api/getSongList": "",
         },
       },
+      "/api/getSongNetEase": {
+        target: "http://127.0.0.1:3900",
+        changeOrigin: true, //允许跨域,
+        pathRewrite: {
+          "^/api/getSongNetEase": "/song/url",
+        },
+      },
+      
       "/api/getSong": {
         target: "http://127.0.0.1:3300/song/urls",
         // target: 'https://api.zsfmyz.top/music/song',
