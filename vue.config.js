@@ -13,6 +13,13 @@ module.exports = {
   outputDir: "dist",
   assetsDir: "static",
 
+  configureWebpack: config => {
+    if (process.env.NODE_ENV === 'production') {
+      // 在生产环境中禁用 source map 文件
+      config.devtool = false;
+    }
+  }
+
   devServer: {
     port: 8082,
     proxy: {
