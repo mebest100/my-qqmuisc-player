@@ -41,8 +41,8 @@ export async function createSong(musicData) {
     singer: musicData.artists[0].name,
     name: musicData.name,
     album: musicData.album.name,
-    duration: Math.floor(musicData.duration/1000),
-    image: musicData.artists[0].img1v1Url,
+    duration: Math.floor(musicData.duration / 1000),
+    image: require("@/assets/imgs/disc.png"), //musicData.artists[0].img1v1Url,
     url: songUrl,
   });
 }
