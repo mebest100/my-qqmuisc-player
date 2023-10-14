@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "cross-env NODE_ENV=production vue-cli-service build"
   },
   "dependencies": {
     "acorn": "^8.0.1",

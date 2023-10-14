@@ -18,7 +18,7 @@ module.exports = {
       // 在生产环境中禁用 source map 文件
       config.devtool = false;
     }
-  }
+  },
 
   devServer: {
     port: 8082,
