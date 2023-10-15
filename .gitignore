@@ -3,7 +3,7 @@
 /dist
 /dist-bak
 
-
+**/yarn.lock
 # local env files
 .env.local
 .env.*.local
