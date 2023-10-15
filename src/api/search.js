@@ -14,7 +14,7 @@ export function getHotKey() {
 
 // 搜索歌曲
 
-export function search(query,limit=20) {
+export function search(query,limit=10) {
   const url = '/api/search'
 
    const data = {keywords: query,limit};

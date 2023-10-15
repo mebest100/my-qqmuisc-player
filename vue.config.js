@@ -62,6 +62,14 @@ module.exports = {
           "^/api/getSong": "",
         },
       },
+        "/api/getLyric": {      
+        target: "http://127.0.0.1:3900",
+        changeOrigin: true, //允许跨域,
+        pathRewrite: {
+          "^/api/getLyric": "/lyric",
+        },
+      },
+
 
       "/api/lyric": {
         target: "https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg",
