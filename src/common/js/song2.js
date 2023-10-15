@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 // 以下为从网易云音乐获取歌曲
 export default class Song {
   constructor({ id, mid, singer, name, album, duration, image, url }) {
@@ -15,38 +14,46 @@ export default class Song {
   }
 
   getLyric() {
-    console.log("getLyric执行了")
-     if (this.lyric) {
-      return Promise.resolve(this.lyric)
+    console.log("getLyric执行了");
+    if (this.lyric) {
+      return Promise.resolve(this.lyric);
     }
-    return new Promise((resolve,reject) => {
-      console.log("getLyric进入了ajax分支")
-     const url = "/api/getLyric" // 注意这里url之前一定要const关键字，否则ajax请求不会发起，因为axios在url为undefined时不会发起请求
-   axios.get(url, {params: {id: this.id}})
-      .then(({ data }) => {
-        console.log("data==>",data)    
-
-          if (data.code == 200) {
-            this.lyric= data.lrc.lyric
-            resolve(this.lyric)
+    return new Promise((resolve, reject) => {
+      console.log("getLyric进入了ajax分支");
+      const url = "/api/getLyric"; // 注意这里url之前一定要const关键字，否则ajax请求不会发起，因为axios在url为undefined时不会发起请求
+      axios.get(url, { params: { id: this.id } }).then(
+        ({
+          data: {
+            lrc: { lyric },
+            code,
+          },
+        }) => {
+          // console.log("data==>", data)
+          // const {
+          //   lrc: { lyrics },
+          //   code,
+          // } = data;
+          if (code == 200) {
+            this.lyric = lyric;
+            resolve(this.lyric);
+          } else {
+            reject("no lyric for this song");
           }
-          else {
-            reject("no lyric for this song")
-          }
-      })
-    })
+        }
+      );
+    });
   }
 }
 
 export async function getSong(mid) {
   let url = "/api/getSongNetEase";
 
- const res = await axios.get(url, {
+  const res = await axios.get(url, {
     params: {
       id: mid,
     },
   });
-  console.log("song data==>", res.data.data)
+  console.log("song data==>", res.data.data);
   let songurl = res.data.data[0].url;
 
   return songurl;
