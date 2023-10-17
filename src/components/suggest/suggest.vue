@@ -164,6 +164,7 @@ export default {
       // } else {
       //   this.insertSong(item);
       // }
+      // 仅仅在选中歌曲时才发起ajax请求获取歌曲播放链接
       const songUrl = await getSong(item.mid)
       item.url = songUrl
       this.insertSong(item);
