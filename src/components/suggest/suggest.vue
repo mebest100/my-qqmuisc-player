@@ -33,7 +33,7 @@
 // 方法
 import { search } from "api/search";
 import { ERR_OK } from "api/config";
-import { createSong } from "common/js/song2";
+import { createSong, getSong } from "common/js/song2";
 import Singer from "common/js/singer";
 import { mapMutations, mapActions } from "vuex";
 // 组件
@@ -151,7 +151,7 @@ export default {
       return item.name;
     },
     // 选择歌手或歌曲
-    selectItem(item) {
+    async selectItem(item) {
       // if (item.type === TYPE_SINGER) {
       //   let singer = new Singer({
       //     id: item.singermid,
@@ -164,6 +164,8 @@ export default {
       // } else {
       //   this.insertSong(item);
       // }
+      const songUrl = await getSong(item.mid)
+      item.url = songUrl
       this.insertSong(item);
       this.$emit("select");
     },

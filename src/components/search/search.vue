@@ -46,6 +46,8 @@
   import {mapActions} from 'vuex'
 
   export default {
+    // 是mixins是vue的一个功能选项，用来注入mixins所包含的代码
+    // mixins关键字相当于一个功能开关，写了就有，没写就没有
     mixins: [playListMixin, searchMixin],
     data() {
       return {

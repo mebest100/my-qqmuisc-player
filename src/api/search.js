@@ -75,6 +75,7 @@ export function search(query,limit=10) {
   return axios.get(url, {
     params: data
   }).then(res => {
+    console.log("research res =>",res)
     // console.log(res.data);
     return Promise.resolve(res.data)
   })

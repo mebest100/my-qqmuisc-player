@@ -21,13 +21,9 @@ export default class Song {
     return new Promise((resolve, reject) => {
       console.log("getLyric进入了ajax分支");
       const url = "/api/getLyric"; // 注意这里url之前一定要const关键字，否则ajax请求不会发起，因为axios在url为undefined时不会发起请求
-      axios.get(url, { params: { id: this.id } }).then(
-        ({
-          data: {
-            lrc: { lyric },
-            code,
-          },
-        }) => {
+      axios
+        .get(url, { params: { id: this.id } })
+        .then(({ data: { lrc: { lyric }, code } }) => {
           // console.log("data==>", data)
           // const {
           //   lrc: { lyrics },
@@ -39,19 +35,19 @@ export default class Song {
           } else {
             reject("no lyric for this song");
           }
-        }
-      );
+        });
     });
   }
 }
 
 export async function getSong(mid) {
+  console.log("开始获取网易云音乐歌曲播放链接.....")
   let url = "/api/getSongNetEase";
 
   const res = await axios.get(url, {
     params: {
-      id: mid,
-    },
+      id: mid
+    }
   });
   console.log("song data==>", res.data.data);
   let songurl = res.data.data[0].url;
@@ -70,6 +66,7 @@ export async function createSong(musicData) {
     album: musicData.album.name,
     duration: Math.floor(musicData.duration / 1000),
     image: require("@/assets/imgs/disc.png"), //musicData.artists[0].img1v1Url,
-    url: songUrl,
+    // url: songUrl
+    // `https://music.163.com/song/media/outer/url?id=${musicData.id}.mp3`
   });
 }
