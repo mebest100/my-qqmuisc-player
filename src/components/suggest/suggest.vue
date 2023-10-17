@@ -10,7 +10,7 @@
   >
     <ul class="suggest-list">
       <li
-        @click="selectItem(item)"
+        @click="selectItem($event,item)"
         class="suggest-item"
         v-for="(item, i) in result"
         :key="i"
@@ -116,7 +116,7 @@ export default {
     },
     // 搜索的加载更多
     searchMore() {
-      return
+      return;
       // if (!this.hasMore) {
       //   return;
       // }
@@ -151,7 +151,8 @@ export default {
       return item.name;
     },
     // 选择歌手或歌曲
-    async selectItem(item) {
+    async selectItem(event,item) {
+      event.stopPropagation();
       // if (item.type === TYPE_SINGER) {
       //   let singer = new Singer({
       //     id: item.singermid,
@@ -165,8 +166,8 @@ export default {
       //   this.insertSong(item);
       // }
       // 仅仅在选中歌曲时才发起ajax请求获取歌曲播放链接
-      const songUrl = await getSong(item.mid)
-      item.url = songUrl
+      const songUrl = await getSong(item.mid);
+      item.url = songUrl;
       this.insertSong(item);
       this.$emit("select");
     },
@@ -191,18 +192,27 @@ export default {
     //   return ret;
     // },
     // 处理song数据
-    async _normalizeSongs(songs) {
-      const songPromise = new Promise( async (resolve) => {
+    async _normalizeSongs(songs) {    
         let ret = [];
         for (const song of songs) {
-          const songItem = await createSong(song);
+          const songItem = createSong(song);
           ret.push(songItem);
         }
-        resolve(ret);
-      });
+        return ret
+    
+      const resultSongs = await songPromise;
+      return resultSongs;
+      // const songPromise = new Promise(async (resolve) => {
+      //   let ret = [];
+      //   for (const song of songs) {
+      //     const songItem = await createSong(song);
+      //     ret.push(songItem);
+      //   }
+      //   resolve(ret);
+      // });
 
-      const resultSongs = await songPromise
-      return resultSongs
+      // const resultSongs = await songPromise;
+      // return resultSongs;
 
       // return new Promise((resolve) => {
       //   let ret = [];

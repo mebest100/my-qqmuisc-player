@@ -55,9 +55,7 @@ export async function getSong(mid) {
   return songurl;
 }
 
-export async function createSong(musicData) {
-  const songUrl = await getSong(musicData.id);
-
+export function createSong(musicData) {
   return new Song({
     id: musicData.id,
     mid: musicData.id,
