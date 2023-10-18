@@ -32,7 +32,7 @@
 <script>
 // 方法
 import { search } from "api/search";
-import { ERR_OK } from "api/config";
+import { ERR_OK, HTTP_OK } from "api/config";
 import { createSong, getSong } from "common/js/song2";
 import Singer from "common/js/singer";
 import { mapMutations, mapActions } from "vuex";
@@ -68,7 +68,7 @@ export default {
       result: [], // 搜索返回的数据
       pullup: true, // 上拉加载
       hasMore: true, // 是否加载完全部
-      perpage: 20, // 每页的条数
+      perpage: 30, // 每页的条数
       beforeScroll: true,
     };
   },
@@ -78,7 +78,6 @@ export default {
     },
     // 获取数据
     search() {
-      const ERR_OK = 200;
       this.page = 1;
       this.hasMore = true;
       this.$refs.suggest.scrollTo(0, 0);
@@ -93,44 +92,51 @@ export default {
       //     }
       //   }
       // );
-
-      search(this.query).then((res) => {
-        if (res.code === ERR_OK) {
+      const data = {
+        query: this.query,
+        limit: this.perpage,
+        offset: (this.page - 1) * this.perpage,
+      };
+      search(data).then((res) => {
+        if (res.code === HTTP_OK) {
           this._normalizeSongs(res.result.songs).then((resp) => {
             this.result = this.result.concat(resp);
           });
 
-          // this.checkMore(res.data);
+          this.checkMore(res.result);
         }
       });
     },
     // 判断是否已经加载完
     checkMore(data) {
-      let song = data.song;
+      let songs = data.songs;
       if (
-        !song.list.length ||
-        song.curnum + song.curpage * 20 > song.totalnum
+        !songs.length ||
+        (this.page - 1) * this.perpage + songs.length > data.songCount
       ) {
         this.hasMore = false;
       }
     },
     // 搜索的加载更多
-    searchMore() {
-      return;
-      // if (!this.hasMore) {
-      //   return;
-      // }
-      // this.page++;
-      // search(this.query, this.page, this.showSinger, this.perpage).then(
-      //   (res) => {
-      //     if (res.code === ERR_OK) {
-      //       this._genResult(res.data).then((resp) => {
-      //         this.result = this.result.concat(resp);
-      //       });
-      //       this.checkMore(res.data);
-      //     }
-      //   }
-      // );
+    searchMore() {   
+      console.log("searchMore 执行了。。。。。")
+      if (!this.hasMore) {
+        return;
+      }
+      this.page++;
+      const data = {
+        query: this.query,
+        limit: this.perpage,
+        offset: (this.page - 1) * this.perpage,
+      };
+      search(data).then((res) => {
+        if (res.code === HTTP_OK) {
+          this._normalizeSongs(res.result.songs).then((resp) => {
+            this.result = this.result.concat(resp);
+          });
+          this.checkMore(res.result);
+        }
+      });
     },
     // 判断是否zhida然后给class
     getIconCls(item) {
@@ -168,7 +174,7 @@ export default {
       // 仅仅在选中歌曲时才发起ajax请求获取歌曲播放链接
       // const songUrl = await getSong(item.mid);
       // item.url = songUrl;
-      this.insertSong({song:item, type: 1});
+      this.insertSong({ song: item, type: 1 });
       this.$emit("select");
     },
     listScroll() {
@@ -199,7 +205,7 @@ export default {
         ret.push(songItem);
       }
       return Promise.resolve(ret);
-     
+
       // const songPromise = new Promise(async (resolve) => {
       //   let ret = [];
       //   for (const song of songs) {

@@ -14,10 +14,10 @@ export function getHotKey() {
 
 // 搜索歌曲
 
-export function search(query,limit=30) {
+export function search(query,limit=30,offset=0) {
   const url = '/api/search'
 
-   const data = {keywords: query,limit};
+   const data = {keywords: query,limit,offset};
 
   // const data = Object.assign({}, commonParams, {
   //   w: query,
