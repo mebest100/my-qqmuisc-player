@@ -97,7 +97,7 @@ export default {
         limit: this.perpage,
         offset: (this.page - 1) * this.perpage,
       };
-      search(data).then((res) => {
+      search(data.query,data.limit,data.offset).then((res) => {
         if (res.code === HTTP_OK) {
           this._normalizeSongs(res.result.songs).then((resp) => {
             this.result = this.result.concat(resp);
@@ -129,7 +129,7 @@ export default {
         limit: this.perpage,
         offset: (this.page - 1) * this.perpage,
       };
-      search(data).then((res) => {
+      search(data.query,data.limit,data.offset).then((res) => {
         if (res.code === HTTP_OK) {
           this._normalizeSongs(res.result.songs).then((resp) => {
             this.result = this.result.concat(resp);
