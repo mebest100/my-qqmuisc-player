@@ -34,10 +34,11 @@
   import Switches from 'base/switches/switches'
   import Scroll from 'base/scroll/scroll'
   import SongList from 'base/song-list/song-list'
-  import NoResult from 'base/no-result/no-result'
-  import Song from 'common/js/song'
+  import NoResult from 'base/no-result/no-result' 
   import {mapGetters, mapActions} from 'vuex'
   import {playListMixin} from 'common/js/mixin'
+  import Song1 from 'common/js/song'
+  import Song2 from 'common/js/song2'
 
   export default {
     mixins: [playListMixin],
@@ -85,8 +86,11 @@
         this.currentIndex = index
       },
       selectSong(song) {
-        // this.insertSong(new Song(song))
-        this.insertSong({song})
+        if (song.type) {
+           this.insertSong({song: new Song2(song)})
+           return
+        }
+        this.insertSong({song: new Song1(song)})
       },
       back() {
         this.$router.back()

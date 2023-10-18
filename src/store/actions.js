@@ -38,6 +38,7 @@ export const insertSong = async function ({commit, state}, {song , type}) {
   if (type==1) {
    const songUrl = await getSong(song.id)
    song.url = songUrl
+   song.type = type
   }
   let playlist = state.playlist.slice()
   let sequenceList = state.sequenceList.slice()
