@@ -1,5 +1,5 @@
 <template>
-  <div class="player" v-show="hasSongUrl() && playlist.length > 0">
+  <div class="player" v-show="playlist.length > 0 && hasSongUrl()">
     <!-- 大播放器 -->
     <transition name="normal"
                 @enter="enter"
@@ -211,7 +211,7 @@ export default {
   methods: {
     // 歌曲播放链接是否就位：
     hasSongUrl() {
-      const result = this.playlist.filter(song => typeof(song.url) != 'undefined')
+      const result = this.playlist.filter(song => song.hasOwnProperty('url'))
       return result.length > 0
     },
     // 切换mini播放器

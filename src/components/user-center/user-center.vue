@@ -85,7 +85,8 @@
         this.currentIndex = index
       },
       selectSong(song) {
-        this.insertSong(new Song(song))
+        // this.insertSong(new Song(song))
+        this.insertSong({song})
       },
       back() {
         this.$router.back()
