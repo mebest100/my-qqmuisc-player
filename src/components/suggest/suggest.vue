@@ -172,9 +172,10 @@ export default {
       //   this.insertSong(item);
       // }
       // 仅仅在选中歌曲时才发起ajax请求获取歌曲播放链接
-      // const songUrl = await getSong(item.mid);
-      // item.url = songUrl;
-      this.insertSong({ song: item, type: 1 });
+      const songUrl = await getSong(item.mid);
+      item.url = songUrl;
+      item.type = 1
+      this.insertSong(item);
       this.$emit("select");
     },
     listScroll() {

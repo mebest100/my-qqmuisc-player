@@ -34,12 +34,13 @@ export const randomPlay = function ({commit}, {list}) {
 }
 
 import { getSong } from "common/js/song2";
-export const insertSong = async function ({commit, state}, {song , type}) {  
-  if (type==1) {
-   const songUrl = await getSong(song.id)
-   song.url = songUrl
-   song.type = type
-  }
+export const insertSong = async function ({commit, state}, song) {  
+  // if (type==1) {
+  //  const songUrl = await getSong(song.id)
+  //  song.url = songUrl
+  //  song.type = type
+  // }
+  console.log("插入歌曲==》", song)
   let playlist = state.playlist.slice()
   let sequenceList = state.sequenceList.slice()
   let currentIndex = state.currentIndex
@@ -51,6 +52,7 @@ export const insertSong = async function ({commit, state}, {song , type}) {
   currentIndex++
   // 插入这首歌到当前索引位置
   playlist.splice(currentIndex, 0, song)
+  console.log("插入歌曲后,playlist==>", playlist)
   // 如果已经包含了这首歌
   if (fpIndex > -1) {
     // 如果当前插入的序号大于列表中的序号

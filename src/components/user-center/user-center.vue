@@ -87,10 +87,10 @@
       },
       selectSong(song) {
         if (song.type) {
-           this.insertSong({song: new Song2(song)})
+           this.insertSong(new Song2(song))
            return
         }
-        this.insertSong({song: new Song1(song)})
+        this.insertSong(new Song1(song))
       },
       back() {
         this.$router.back()
