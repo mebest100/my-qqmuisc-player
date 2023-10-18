@@ -10,7 +10,7 @@
   >
     <ul class="suggest-list">
       <li
-        @click="selectItem($event,item)"
+        @click="selectItem($event, item)"
         class="suggest-item"
         v-for="(item, i) in result"
         :key="i"
@@ -151,7 +151,7 @@ export default {
       return item.name;
     },
     // 选择歌手或歌曲
-    async selectItem(event,item) {
+    async selectItem(event, item) {
       event.stopPropagation();
       // if (item.type === TYPE_SINGER) {
       //   let singer = new Singer({
@@ -192,16 +192,14 @@ export default {
     //   return ret;
     // },
     // 处理song数据
-    async _normalizeSongs(songs) {    
-        let ret = [];
-        for (const song of songs) {
-          const songItem = createSong(song);
-          ret.push(songItem);
-        }
-        return ret
-    
-      const resultSongs = await songPromise;
-      return resultSongs;
+    _normalizeSongs(songs) {
+      let ret = [];
+      for (const song of songs) {
+        const songItem = createSong(song);
+        ret.push(songItem);
+      }
+      return ret;
+     
       // const songPromise = new Promise(async (resolve) => {
       //   let ret = [];
       //   for (const song of songs) {
