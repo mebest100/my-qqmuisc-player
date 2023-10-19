@@ -132,6 +132,7 @@ export default {
         offset: (this.page - 1) * this.perpage,
       };
       search(data.query,data.limit,data.offset).then((res) => {
+        // 注意：如果这里发生了异常，那么后面的this.checkMore是不会执行的，这个是关键！
         if (res.code === HTTP_OK && res.result.hasOwnProperty('songs')) {
           this._normalizeSongs(res.result.songs).then((resp) => {
             this.result = this.result.concat(resp);
