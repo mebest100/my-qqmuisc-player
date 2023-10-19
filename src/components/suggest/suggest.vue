@@ -98,7 +98,7 @@ export default {
         offset: (this.page - 1) * this.perpage,
       };
       search(data.query,data.limit,data.offset).then((res) => {
-        if (res.code === HTTP_OK) {
+        if (res.code === HTTP_OK && res.result.songs.length >0) {
           this._normalizeSongs(res.result.songs).then((resp) => {
             this.result = this.result.concat(resp);
           });
@@ -109,10 +109,12 @@ export default {
     },
     // 判断是否已经加载完
     checkMore(data) {
-      let songs = data.songs;
-      if (
-        !songs.length ||
-        (this.page - 1) * this.perpage + songs.length > data.songCount
+      console.log("checkmore收到数据==》",data)
+      // let songs = data.songs;
+      if ( 
+        // data.songCount == 0  
+        this.result.length >= data.songCount
+        // (this.page - 1) * this.perpage + songs.length > data.songCount
       ) {
         this.hasMore = false;
       }
@@ -130,12 +132,12 @@ export default {
         offset: (this.page - 1) * this.perpage,
       };
       search(data.query,data.limit,data.offset).then((res) => {
-        if (res.code === HTTP_OK) {
+        if (res.code === HTTP_OK && res.result.hasOwnProperty('songs')) {
           this._normalizeSongs(res.result.songs).then((resp) => {
             this.result = this.result.concat(resp);
-          });
-          this.checkMore(res.result);
+          });          
         }
+        this.checkMore(res.result);
       });
     },
     // 判断是否zhida然后给class
