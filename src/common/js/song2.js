@@ -11,6 +11,7 @@ export default class Song {
     this.duration = duration;
     this.image = image;
     this.url = url;
+    this.type = 1
   }
 
   getLyric() {
