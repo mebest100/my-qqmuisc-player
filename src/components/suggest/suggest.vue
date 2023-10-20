@@ -107,7 +107,7 @@ export default {
         }
       });
     },
-    // 判断是否已经加载完
+    // 判断全部歌曲是否已经加载完毕
     checkMore(data) {
       console.log("checkmore收到数据==》",data)
       // let songs = data.songs;
@@ -123,6 +123,7 @@ export default {
     searchMore() {   
       console.log("searchMore 执行了。。。。。")
       if (!this.hasMore) {
+        console.log("全部歌曲已加载完毕，没有更多记录了");
         return;
       }
       this.page++;
@@ -133,6 +134,7 @@ export default {
       };
       search(data.query,data.limit,data.offset).then((res) => {
         // 注意：如果这里发生了异常，那么后面的this.checkMore是不会执行的，这个是关键！
+        // 所以这里使用hasOwnProperty方法来判断对象是否有某属性，从而不会触发异常
         if (res.code === HTTP_OK && res.result.hasOwnProperty('songs')) {
           this._normalizeSongs(res.result.songs).then((resp) => {
             this.result = this.result.concat(resp);
