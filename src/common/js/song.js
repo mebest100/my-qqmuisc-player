@@ -34,29 +34,20 @@ export default class Song {
 export async function getSong(mid) {
   let url = '/api/getSong'
 
-  return await axios.get(url, {
+  const res = await axios.get(url, {
     params: {
-      // songmid: mid,
-      // guid: 85640610
       id: mid,
     }
-  }).then((res) => {
-    // console.log(res.data.data);
-    // let songurl = res.data.data.musicUrl 
-    let songurl = res.data.data[mid]
-    // console.log(songurl);
-    return songurl
   })
+  // 获取qq音乐网址时要先判断一下是否有mid字段
+  let songurl = res.data.data.hasOwnProperty(mid) ? res.data.data[mid] : ''
+  return songurl
 
 
 }
 
-export async function createSong(musicData) {
-  let songUrl = '123'
-  await getSong(musicData.songmid).then((data) => {
-    //注意getSong并不是axios函数，虽然其返回的是一个promise对象，但不需要用res.data的形式去取数据。
-    songUrl = data;
-  })
+export async function createSong(musicData) {  
+  const songUrl = await getSong(musicData.songmid)
 
   // console.log('----------------------------------------');
   // console.log(songUrl)
