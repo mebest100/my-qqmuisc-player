@@ -11,18 +11,22 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import MHeader from 'components/m-header/m-header'
-  import Player from 'components/player/player'
-  import Tab from 'components/tab/tab'
+import MHeader from "components/m-header/m-header";
+import Player from "components/player/player";
+import Tab from "components/tab/tab";
+import axios from "axios";
 
-  export default {
-    components: {
-      MHeader,
-      Tab,
-      Player
-    }
-  }
+export default {
+  created() {
+    // console.log("Vue App created")
+   
+  },
+  components: {
+    MHeader,
+    Tab,
+    Player,
+  },
+};
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
-</style>
+<style scoped lang="stylus" rel="stylesheet/stylus"></style>

@@ -6,9 +6,9 @@
 
 <script type="text/ecmascript-6">
   import MusicList from 'components/music-list/music-list'
-  import {getSingerDetail} from 'api/singer'
+  import {getSingerDetail2} from 'api/singer'
   import {ERR_OK} from 'api/config'
-  import {createSong} from 'common/js/song'
+  import {createSong} from 'common/js/song3'
   import {mapGetters} from 'vuex'
 
   export default {
@@ -38,24 +38,22 @@
           this.$router.push('/singer')
           return
         }
-        getSingerDetail(this.singer.id).then((res) => {
+        getSingerDetail2(this.singer.id).then((res) => {
+          console.log("getSingerDetail2 res==>",res)
           if (res.code === ERR_OK) {
-            this.songs = this._normalizeSongs(res.data.list)
+            this.songs = this._normalizeSongs(res.result.songs)
+          
           }
         })
       },
       _normalizeSongs(list) {
         let ret = []
-        list.forEach((item) => {
-          let {musicData} = item
-          if (musicData.songid && musicData.albummid) {
-            createSong(musicData).then(res => {
-              // 收费歌曲获取不到url过滤
-              if (res.url.length > 50) {
-                 ret.push(res)
-              }               
+        list.forEach((item) => {          
+          if (item.mid && item.album) {
+            createSong(item).then(res => {
+               ret.push(res)  
             })
-            // ret.push(createSong(musicData))
+            // ret.push(createSong(item))
           }
         })
         return ret
