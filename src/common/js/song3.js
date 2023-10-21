@@ -59,7 +59,8 @@ export async function createSong(musicData) {
     name: musicData.name,
     album: musicData.album,
     duration: musicData.duration,
-    image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
+    image: musicData.image,
+    // image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
     url: songUrl
   })
 }
