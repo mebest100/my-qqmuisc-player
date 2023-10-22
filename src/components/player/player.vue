@@ -474,16 +474,16 @@ export default {
       //因为每首歌来自于common/js/song.js封装的Song这个类，而这个类封装了一个getLyric的方法
       //所以每首歌都可以调用这个getLyric的方法来获得歌词。
       let lyricFunc = null;
-      if (this.currentSong.type && this.currentSong.type ==1  ) {
-        console.log("进入网易歌词接口。。。。")
+      if (this.currentSong.type && this.currentSong.type == 1) {
+        console.log("进入网易歌词接口。。。。");
         lyricFunc = getLyric2;
       } else {
-        console.log("进入qq歌词接口。。。。")
+        console.log("进入qq歌词接口。。。。");
         lyricFunc = getLyric3;
       }
 
       lyricFunc(this.currentSong.mid)
-        .then((lyric) => {        
+        .then((lyric) => {
           this.currentLyric = new Lyric(lyric, this.handleLyric);
           if (this.playing) {
             this.currentLyric.play();
@@ -611,29 +611,49 @@ export default {
   },
   watch: {
     // 监听currentSong
-    currentSong(newSong, oldSong) {
-      if (!newSong.id) {
-        return;
-      }
-      // 歌曲id不变就不触发下面操作
-      if (newSong.id === oldSong.id) {
-        return;
-      }
-      // 每次开始前确定下是否已经存在currentLyric，防止歌词跳动
-      if (this.currentLyric) {
-        this.currentLyric.stop();
-      }
-      // 播放
-      setTimeout(() => {
-        // 判断是否获得歌曲播放源
-        this.ifMusicUrl();
-        // 播放
-        this.$refs.audio.play();
-        // 处理歌词
+    // currentSong(newSong, oldSong) {
+    //   if (!newSong.id) {
+    //     return;
+    //   }
+    //   // 歌曲id不变就不触发下面操作
+    //   if (newSong.id === oldSong.id) {
+    //     return;
+    //   }
+    //   // 每次开始前确定下是否已经存在currentLyric，防止歌词跳动
+    //   if (this.currentLyric) {
+    //     this.currentLyric.stop();
+    //   }
+    //   // 播放
+    //   setTimeout(() => {
+    //     // 判断是否获得歌曲播放源
+    //     this.ifMusicUrl();
+    //     // 播放
+    //     this.$refs.audio.play();
+    //     // 处理歌词
+    //     this.getLyric();
+    //     // 重置下播放的进度，解决第一首歌歌词延时的情况
+    //     this.$refs.audio.currentTime = 0;
+    //   }, 1000);
+    // },
+
+    currentSong: {
+      async handler(newSong, oldSong) {
+        if (!newSong.id) {
+          return;
+        }
+        if (newSong.id === oldSong.id) {
+          return;
+        }
+        if (this.currentLyric) {
+          this.currentLyric.stop();
+        }
+        await this.ifMusicUrl(); // 使用异步函数等待操作完成
+        const audio = this.$refs.audio;
+        audio.play();
         this.getLyric();
-        // 重置下播放的进度，解决第一首歌歌词延时的情况
-        this.$refs.audio.currentTime = 0;
-      }, 1000);
+        audio.currentTime = 0;
+      },
+      deep: true,
     },
     // 监听播放状态Vuex
     playing(newPlaying) {
