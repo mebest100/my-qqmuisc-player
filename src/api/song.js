@@ -5,7 +5,7 @@ import axios from 'axios'
 // 获取歌词
 export function getLyric(mid) {
   // URL是自己后台代理
-  let url = '/api/lyric'
+  let url = '/api/getQQlyric'
   let data = Object.assign({}, commonParams, {
     songmid: mid,
     pcachetime: +new Date(),

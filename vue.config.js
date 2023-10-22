@@ -63,7 +63,7 @@ module.exports = {
           "^/api/getSong": "",
         },
       },
-      "/api/getLyric": {
+      "/api/getLyric": { // 获取网易音乐接口歌词
         target: "http://127.0.0.1:3900",
         changeOrigin: true, //允许跨域,
         pathRewrite: {
@@ -72,7 +72,7 @@ module.exports = {
       },
 
 
-      "/api/lyric": {
+      "/api/getQQlyric": { // 获取qq音乐接口歌词
         target: "https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg",
         changeOrigin: true, //允许跨域,
         headers: {
@@ -80,7 +80,7 @@ module.exports = {
           host: "c.y.qq.com",
         },
         pathRewrite: {
-          "^/api/lyric": "",
+          "/api/getQQlyric": "",  // 这里pathRewrite不能写错，否则会报404错误
         },
       },
 

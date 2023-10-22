@@ -13,22 +13,22 @@ export default class Song {
     this.duration = duration
     this.image = image
     this.url = url
-  }
-  getLyric() {
-    if (this.lyric) {
-      return Promise.resolve(this.lyric)
-    }
-    return new Promise((resolve, reject) => {
-      getLyric(this.mid).then((res) => {
-        if (res.retcode === ERR_OK) {
-          this.lyric = Base64.decode(res.lyric)
-          resolve(this.lyric)
-        } else {
-          reject('no lyric')
-        }
-      })
+  }  
+}
+
+
+export function getLyric3(mid) {
+  return new Promise((resolve, reject) => {
+    getLyric(mid).then((res) => {
+      if (res.retcode === ERR_OK) {
+       const lyric = Base64.decode(res.lyric)
+       console.log("解密后的qq歌词==》", lyric);
+        resolve(lyric)
+      } else {
+        reject('no lyric')
+      }
     })
-  }
+  })
 }
 
 export async function getSong(mid) {
@@ -48,21 +48,20 @@ export async function getSong(mid) {
 
 export async function createSong(musicData) {  
   const songUrl = await getSong(musicData.mid)
+  musicData.url = songUrl
+  return musicData
 
-  // console.log('----------------------------------------');
-  // console.log(songUrl)
-
-  return new Song({
-    id: musicData.id,
-    mid: musicData.mid,
-    singer: musicData.singer,
-    name: musicData.name,
-    album: musicData.album,
-    duration: musicData.duration,
-    image: musicData.image,
-    // image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
-    url: songUrl
-  })
+  // return new Song({
+  //   id: musicData.id,
+  //   mid: musicData.mid,
+  //   singer: musicData.singer,
+  //   name: musicData.name,
+  //   album: musicData.album,
+  //   duration: musicData.duration,
+  //   image: musicData.image,
+  //   // image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
+  //   url: songUrl
+  // })
 }
 export function filterSinger(singer) {
   let ret = []

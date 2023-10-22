@@ -40,7 +40,7 @@
         }
         getSingerDetail2(this.singer.id).then((res) => {
           console.log("getSingerDetail2 res==>",res)
-          if (res.code === ERR_OK) {
+          if (res.code === ERR_OK) {            
             this.songs = this._normalizeSongs(res.result.songs)
           
           }
@@ -52,8 +52,7 @@
           if (item.mid && item.album) {
             createSong(item).then(res => {
                ret.push(res)  
-            })
-            // ret.push(createSong(item))
+            })          
           }
         })
         return ret

@@ -14,31 +14,29 @@ export default class Song {
     this.type = 1
   }
 
-  getLyric() {
-    console.log("getLyric执行了");
-    if (this.lyric) {
-      return Promise.resolve(this.lyric);
-    }
-    return new Promise((resolve, reject) => {
-      console.log("getLyric进入了ajax分支");
-      const url = "/api/getLyric"; // 注意这里url之前一定要const关键字，否则ajax请求不会发起，因为axios在url为undefined时不会发起请求
-      axios
-        .get(url, { params: { id: this.id } })
-        .then(({ data: { lrc: { lyric }, code } }) => {
-          // console.log("data==>", data)
-          // const {
-          //   lrc: { lyrics },
-          //   code,
-          // } = data;
-          if (code == 200) {
-            this.lyric = lyric;
-            resolve(this.lyric);
-          } else {
-            reject("no lyric for this song");
-          }
-        });
-    });
-  }
+}
+
+export function getLyric2(mid) {
+  console.log("getLyric执行了");
+
+  return new Promise((resolve, reject) => {
+    console.log("getLyric进入了ajax分支");
+    const url = "/api/getLyric"; // 注意这里url之前一定要const关键字，否则ajax请求不会发起，因为axios在url为undefined时不会发起请求
+    axios
+      .get(url, { params: { id: mid } })
+      .then(({ data: { lrc: { lyric }, code } }) => {
+        // console.log("data==>", data)
+        // const {
+        //   lrc: { lyrics },
+        //   code,
+        // } = data;
+        if (code == 200) {          
+          resolve(lyric);
+        } else {
+          reject("no lyric for this song");
+        }
+      });
+  });
 }
 
 export async function getSong(mid) {
