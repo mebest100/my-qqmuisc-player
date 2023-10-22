@@ -483,10 +483,7 @@ export default {
       }
 
       lyricFunc(this.currentSong.mid)
-        .then((lyric) => {
-          if (this.currentSong.lyric !== lyric) {
-            return;
-          }
+        .then((lyric) => {        
           this.currentLyric = new Lyric(lyric, this.handleLyric);
           if (this.playing) {
             this.currentLyric.play();
