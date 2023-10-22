@@ -74,18 +74,6 @@ module.exports = {
           })           
 
         })
-        return axios.get(url, {
-          headers: headers2,
-          params: Object.assign({}, commonParams, {
-            sign,
-            "-": randomKey,
-            data,
-          })
-        }).then((response) => {
-          return res.json(response.data)
-        }).catch((e) => {
-          console.log(e)
-        })
       })
     },
     port: 8082,
