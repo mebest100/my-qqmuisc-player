@@ -5,30 +5,7 @@ const headers = {
   cookie: '_ga=GA1.2.1634646802.1582977621; pgv_pvid=9083335840; pgv_pvi=3690052608; RK=Z3YNFdUScP; ptcz=11c486385bcc91adb7a6bb89a2857ec7440fdca98508e4635ed1f8f2575865c2; tvfe_boss_uuid=cc3c60de5dd9367f; pt_sms_phone=189******60; pac_uid=0_af94bd847d197; XWINDEXGREY=0; ptui_loginuin=93303072; ts_refer=ADTAGmyqq; ts_uid=6622604064; psrf_qqunionid=; tmeLoginType=2; psrf_qqaccess_token=45ECC6265941E36B1D45BAC2B8CF9E2C; psrf_access_token_expiresAt=1606279281; psrf_qqrefresh_token=74AD21E9DE7CA9F3A4B71206265583F0; uin=1296538920; euin=oK-q7w4iNeEAon**; psrf_qqopenid=C9807D151EB8A2D399DB0A96EDBD574F; yq_index=0; userAction=1; yqq_stat=0; pgv_info=ssid=s1753859976; ts_last=y.qq.com/; pgv_si=s237346816'
 }
 
-const headers2 = {
-  referer: 'https://y.qq.com/',
-  origin: 'https://y.qq.com/',
-  'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
-}
-const getSecuritySign = require("./src/api/sign");
-
-const commonParams = {
-  g_tk: 5381,
-  loginUin: 0,
-  hostUin: 0,
-  inCharset: "utf8",
-  outCharset: "utf-8",
-  notice: 0,
-  needNewCode: 0,
-  format: "json",
-  platform: "yqq.json",
-};
-
-const getRandomVal = (prefix = "") => {
-  return prefix + (Math.random() + "").replace("0.", "");
-}
-
-const axios = require("axios")
+const RegisterRoute = require("./src/registerRouter")
 
 module.exports = {
   publicPath: "/",
@@ -38,44 +15,7 @@ module.exports = {
   productionSourceMap: false, // 禁止生产打包source map文件   
 
   devServer: {
-    before: (app) => {
-      app.get("/testapp", (req, res) => {
-        console.log("request param,", req.query.id)
-        res.json({ msg: "worked" })
-      })
-
-      app.get("/api/getSingerDetail", (req, res) => {
-        console.log("getSingerDetail request param,", req.query.id)
-        // return res.json({ "/api/getSingerDetail": "worked" })
-        const url = "https://u.y.qq.com/cgi-bin/musics.fcg";
-        const data = JSON.stringify({
-          comm: { ct: 24, cv: 0 },
-          singerSongList: {
-            method: "GetSingerSongList",
-            param: { order: 1, singerMid: req.query.id, begin: 0, num: 100 },
-            module: "musichall.song_list_server",
-          },
-        });
-        const randomKey = getRandomVal("getSingerSong");
-        const sign = getSecuritySign(data);
-        return new Promise((resolve, reject) => {
-          axios.get(url, {
-            headers: headers2,
-            params: Object.assign({}, commonParams, {
-              sign,
-              "-": randomKey,
-              data,
-            })
-          }).then((response) => {
-            return resolve(res.json(response.data))
-          }).catch((err) => {
-            console.log(err)
-            return reject(err)
-          })           
-
-        })
-      })
-    },
+    before: (app) => RegisterRoute(app),
     port: 8082,
     proxy: {     
       "/api/getRecommend": {
