@@ -19,7 +19,7 @@ import axios from "axios";
 export default {
   created() {
     // console.log("Vue App created")
-   
+
   },
   components: {
     MHeader,

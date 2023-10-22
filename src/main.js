@@ -10,7 +10,7 @@ import axios from 'axios'
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
-
+// require("./mock")
 
 /* eslint-disable no-unused-vars */
 // import vConsole from 'vconsole'

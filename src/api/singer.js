@@ -39,14 +39,26 @@ export function getSingerList() {
 //   return jsonp(url, data, options)
 // }
 
-export function getSingerDetail2(singerId) {
-  
+
+const commonParams2 = {
+  g_tk: 5381,
+  loginUin: 0,
+  hostUin: 0,
+  inCharset: "utf8",
+  outCharset: "utf-8",
+  notice: 0,
+  needNewCode: 0,
+  format: "json",
+  platform: "yqq.json",
+};
+
+export function getSingerDetail2(singerId) {  
 
   const url = "/api/getSingerDetail";
 
   return axios
-    .get(url, {
-      params: { id: singerId },
+    .get(url, { 
+      params: { id: singerId }
     })
     .then((response) => {
       console.log(response.data);
@@ -80,6 +92,7 @@ function getRandomVal(prefix = "") {
 // 处理歌曲列表
 function handleSongList(list) {
   const songList = [];
+  const fallbackPicUrl = 'https://y.gtimg.cn/mediastyle/music_v11/extra/default_300x300.jpg?max_age=31536000'
 
   list.forEach((item) => {
     const info = item.songInfo || item;
