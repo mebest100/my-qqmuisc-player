@@ -51,13 +51,13 @@ module.exports = {
         },
       },
 
-      "/api/getSong": {
-        target: "http://127.0.0.1:3300/song/urls",       
-        changeOrigin: true, //允许跨域,
-        pathRewrite: {
-          "^/api/getSong": "",
-        },
-      },
+      // "/api/getSong": {
+      //   target: "http://127.0.0.1:3300/song/urls",       
+      //   changeOrigin: true, //允许跨域,
+      //   pathRewrite: {
+      //     "^/api/getSong": "",
+      //   },
+      // },
       "/api/getLyric": { // 获取网易音乐接口歌词
         target: "http://127.0.0.1:3900",
         changeOrigin: true, //允许跨域,

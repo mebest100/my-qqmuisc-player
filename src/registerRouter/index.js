@@ -1,4 +1,4 @@
-const { RegisterGetBanner, RegisterGetRecomendDiscList, RegisterGetSongList } = require("./jsosoApi") 
+const { RegisterGetBanner, RegisterGetRecomendDiscList, RegisterGetSongList, RegisterGetSongUrl } = require("./jsosoApi") 
 const headers = {
     referer: 'https://y.qq.com/',
     origin: 'https://y.qq.com/',
@@ -71,6 +71,7 @@ const RegisterRoute = (app) => {
     RegisterGetBanner(app) 
     RegisterGetRecomendDiscList(app)
     RegisterGetSongList(app)
+    RegisterGetSongUrl(app)
 }
 
 

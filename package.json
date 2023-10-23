@@ -24,6 +24,7 @@
     "js-base64": "^2.1.9",
     "jsonp": "0.2.1",
     "lyric-parser": "^1.0.1",
+    "moment": "^2.29.4",
     "net": "^1.0.2",
     "node-libs-browser": "^2.2.1",
     "portfinder": "^1.0.28",
