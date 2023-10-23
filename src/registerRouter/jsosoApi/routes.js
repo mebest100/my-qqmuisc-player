@@ -4,34 +4,45 @@ const cheerio = require('cheerio');
 
 const RegisterGetBanner = (app) => {
     app.get('/api/getBanner', async (req, res) => {
-        req.query.ownCookie = 1;
-        const page = await request('https://c.y.qq.com/node/musicmac/v6/index.html', {
-            dataType: 'raw',
-        })
-        const $ = cheerio.load(page);
-        const result = [];
-        $('.focus__box .focus__pic').each((a, b) => {
-            const domA = cheerio(b).find('a');
-            const domImg = cheerio(b).find('img');
-            const [type, id] = [domA.attr('data-type'), domA.attr('data-rid')];
-            const obj = {
-                type,
-                id,
-                picUrl: domImg.attr('src'),
-                h5Url: {
-                    10002: `https://y.qq.com/musicmac/v6/album/detail.html?albumid=${id}`
-                }[type] || undefined,
-                typeStr: {
-                    10002: 'album'
-                }[type] || undefined
+        return new Promise(async (resolve, reject) => {
+            try {
+                req.query.ownCookie = 1;
+                const page = await request('https://c.y.qq.com/node/musicmac/v6/index.html', {
+                    dataType: 'raw',
+                })
+                const $ = cheerio.load(page);
+                const result = [];
+                $('.focus__box .focus__pic').each((a, b) => {
+                    const domA = cheerio(b).find('a');
+                    const domImg = cheerio(b).find('img');
+                    const [type, id] = [domA.attr('data-type'), domA.attr('data-rid')];
+                    const obj = {
+                        type,
+                        id,
+                        picUrl: domImg.attr('src'),
+                        h5Url: {
+                            10002: `https://y.qq.com/musicmac/v6/album/detail.html?albumid=${id}`
+                        }[type] || undefined,
+                        typeStr: {
+                            10002: 'album'
+                        }[type] || undefined
+                    }
+                    result.push(obj);
+                })
+
+                return resolve(res.json({
+                    result: 100,
+                    data: result,
+                }))
+
+
+            } catch (error) {
+                console.log("error=>", error)
+                reject(error)
             }
-            result.push(obj);
+
         })
 
-        res.send({
-            result: 100,
-            data: result,
-        })
     })
 
 
@@ -65,26 +76,36 @@ const RegisterGetRecomendDiscList = (app) => {
             }),
         };
 
-        const result = await request({
-            url: 'http://u.y.qq.com/cgi-bin/musicu.fcg',
-            data,
-        });
+        return new Promise(async (resolve, reject) => {
+            try {
+                const result = await request({
+                    url: 'http://u.y.qq.com/cgi-bin/musicu.fcg',
+                    data,
+                });
 
-        if (Number(raw)) {
-            res.send(result);
-        } else {
-            const { total, v_playlist } = result.playlist.data;
-            res.send({
-                result: 100,
-                data: {
-                    total,
-                    list: v_playlist,
-                    id,
-                    pageNo,
-                    pageSize,
+                if (Number(raw)) {
+                    return resolve(res.json({ result }));
+                } else {
+                    const { total, v_playlist } = result.playlist.data;
+                    return resolve(res.json({
+                        result: 100,
+                        data: {
+                            total,
+                            list: v_playlist,
+                            id,
+                            pageNo,
+                            pageSize,
+                        }
+                    }))
                 }
-            })
-        }
+
+            } catch (error) {
+                console.log("error==>", error)
+                reject(error)
+            }
+
+
+        })
 
     });
 }
