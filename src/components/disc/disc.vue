@@ -50,11 +50,11 @@
           if (musicData.songid && musicData.albummid) {
           createSong(musicData).then(res => {
               // 收费歌曲获取不到url过滤
-              if (res.url.length > 50) {
-                 ret.push(res)
-              }               
-            })
-            // ret.push(createSong(musicData))
+              // if (res.url.length > 50) {
+              //    ret.push(res)
+              // }      
+              ret.push(res)         
+            })          
           }
         })
         return ret

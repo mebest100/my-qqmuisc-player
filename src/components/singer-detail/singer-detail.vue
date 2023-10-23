@@ -41,6 +41,7 @@
         getSingerDetail2(this.singer.id).then((res) => {
           console.log("getSingerDetail2 res==>",res)
           if (res.code === ERR_OK) {            
+            // this.songs = res.result.songs
             this.songs = this._normalizeSongs(res.result.songs)
           
           }

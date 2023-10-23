@@ -27,7 +27,7 @@ apiRouter.get('/search', function (req, res) {
 })
 
 
-apiRouter.get('/getRecommend', function (req, res) {
+apiRouter.get('/getBanner', function (req, res) {
     var url = 'http://127.0.0.1:3300/recommend/banner'
     axios.get(url, {
         headers: headers,

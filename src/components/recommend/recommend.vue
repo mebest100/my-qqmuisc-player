@@ -40,7 +40,7 @@
   import Slider from 'base/slider/slider'
   import Loading from 'base/loading/loading'
   import Scroll from 'base/scroll/scroll'
-  import {getRecommend, getDiscList} from 'api/recommend'
+  import {getBanner, getDiscList} from 'api/recommend'
   import {playListMixin} from 'common/js/mixin'
   import {mapMutations} from 'vuex'
 
@@ -53,7 +53,7 @@
       }
     },
     created() {
-      this._getRecommend()
+      this._getBanner()
 
       this._getDiscList()
     },
@@ -77,8 +77,8 @@
         // 在vuex中设置disc属性，重要！！！
         this.setDisc(item)
       },
-      _getRecommend() {
-        getRecommend().then((res) => {
+      _getBanner() {
+        getBanner().then((res) => {
           if (res.status === 200) {
             this.recommends = res.data.data
             // console.log(res.data.data);

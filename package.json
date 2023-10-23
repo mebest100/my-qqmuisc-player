@@ -13,6 +13,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.0.0",
     "better-scroll": "^2.5.1",
+    "cheerio": "^1.0.0-rc.12",
     "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.6.5",
     "create-keyframe-animation": "^0.1.0",
@@ -32,7 +33,8 @@
     "vue-lazyload": "^1.3.3",
     "vue-router": "^3.4.3",
     "vue-template-compiler": "^2.6.12",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

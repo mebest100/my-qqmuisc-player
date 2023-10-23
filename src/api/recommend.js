@@ -9,8 +9,8 @@ const headers = {
   host: "y.qq.com",
 };
 
-export function getRecommend() {
-  const url = "/api/getRecommend";
+export function getBanner() {
+  const url = "/api/getBanner";
   let resp = axios
     .get(url, {
       params: {
@@ -24,7 +24,7 @@ export function getRecommend() {
 }
 
 export function getDiscList() {
-  const url = "/api/getDiscList";
+  const url = "/api/getRecomendDiscList";
 
   return axios
     .get(url, {

@@ -18,21 +18,21 @@ module.exports = {
     before: (app) => RegisterRoute(app),
     port: 8082,
     proxy: {     
-      "/api/getRecommend": {
-        target: "http://127.0.0.1:3300/recommend/banner",
-        changeOrigin: true, //允许跨域,
-        pathRewrite: {
-          "^/api/getRecommend": "",
-        },
-      },
+      // "/api/getBanner": {
+      //   target: "http://127.0.0.1:3300/recommend/banner",
+      //   changeOrigin: true, //允许跨域,
+      //   pathRewrite: {
+      //     "^/api/getBanner": "",
+      //   },
+      // },
 
-      "/api/getDiscList": {
-        target: "http://127.0.0.1:3300/recommend/playlist/u",
-        changeOrigin: true, //允许跨域,
-        pathRewrite: {
-          "^/api/getDiscList": "",
-        },
-      },
+      // "/api/getRecomendDiscList": {
+      //   target: "http://127.0.0.1:3300/recommend/playlist/u",
+      //   changeOrigin: true, //允许跨域,
+      //   pathRewrite: {
+      //     "^/api/getRecomendDiscList": "",
+      //   },
+      // },
 
       "/api/getSongList": {
         target: "http://127.0.0.1:3300/songlist",
