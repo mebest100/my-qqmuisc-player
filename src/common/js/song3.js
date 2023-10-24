@@ -1,8 +1,9 @@
-import { getLyric } from 'api/song'
+import { getQQLyric } from 'api/song'
 import { ERR_OK } from 'api/config'
 import { Base64 } from 'js-base64'
 import axios from 'axios'
 import { getSongs } from "./song"
+import { filterPay } from "./util"
 
 export default class Song {
   constructor({ id, mid, singer, name, album, duration, image, url }) {
@@ -20,7 +21,7 @@ export default class Song {
 
 export function getLyric3(mid) {
   return new Promise((resolve, reject) => {
-    getLyric(mid).then((res) => {
+    getQQLyric(mid).then((res) => {
       if (res.retcode === ERR_OK) {
        const lyric = Base64.decode(res.lyric)
        console.log("解密后的qq歌词==》", lyric);
@@ -49,7 +50,7 @@ export async function getSong(mid) {
 
 export async function createSongList(songlist) {
   console.log("Singer detail's songlist =>", songlist)
-  return getSongs(songlist.map((item) => item.mid)).then((data) => {
+  return getSongs(filterPay(songlist).map((item) => item.mid)).then((data) => {
     // console.log("getSong data ==>", data);
     return songlist.map((song) => {
       song.url = data[song.mid];

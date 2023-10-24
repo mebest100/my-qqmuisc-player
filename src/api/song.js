@@ -3,7 +3,7 @@ import axios from 'axios'
 
 
 // 获取歌词
-export function getLyric(mid) {
+export function getQQLyric(mid) {
   // URL是自己后台代理
   let url = '/api/getQQlyric'
   let data = Object.assign({}, commonParams, {
@@ -20,7 +20,7 @@ export function getLyric(mid) {
     var ret = res.data
     // console.log(ret);
     // if (typeof ret === 'string') {
-    //   var reg = /^\w+\(({[^()]+})\)$/
+      // var reg = /^\w+\(({[^()]+})\)$/
     //   var matches = ret.match(reg)
     //   if (matches) {
     //     ret = JSON.parse(matches[1])

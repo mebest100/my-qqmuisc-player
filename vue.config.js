@@ -58,11 +58,11 @@ module.exports = {
       //     "^/api/getSong": "",
       //   },
       // },
-      "/api/getLyric": { // 获取网易音乐接口歌词
+      "/api/getNetEaseLyric": { // 获取网易音乐接口歌词
         target: "http://127.0.0.1:3900",
         changeOrigin: true, //允许跨域,
         pathRewrite: {
-          "^/api/getLyric": "/lyric",
+          "^/api/getNetEaseLyric": "/lyric",
         },
       },
 
@@ -79,13 +79,13 @@ module.exports = {
         },
       },
 
-      "/api/search": {
+      "/api/NetEaseSearch": {
         target: "http://127.0.0.1:3900",
         // target: "https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp",
         changeOrigin: true, //允许跨域,
         // headers: headers,
         pathRewrite: {
-          "^/api/search": "/search",
+          "^/api/NetEaseSearch": "/search",
         },
       },
       // "/api/getSingerDetail": {

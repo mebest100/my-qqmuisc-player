@@ -25,3 +25,8 @@ export function debounce(func, delay) {
     }, delay)
   }
 }
+
+// 过滤付费歌曲
+export function filterPay(songlist) {
+  return songlist.filter(song => song.pay.payplay == 0)
+}

@@ -15,7 +15,7 @@ export function getHotKey() {
 // 搜索歌曲
 
 export function search(query,limit,offset) {
-  const url = '/api/search'
+  const url = '/api/NetEaseSearch'
 
    const data = {keywords: query,limit,offset};
 

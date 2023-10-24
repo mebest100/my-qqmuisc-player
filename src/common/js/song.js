@@ -1,7 +1,8 @@
-import { getLyric } from 'api/song'
+import { getQQLyric } from 'api/song'
 import { ERR_OK } from 'api/config'
 import { Base64 } from 'js-base64'
 import axios from 'axios'
+import { filterPay } from "./util"
 
 export default class Song {
   constructor({ id, mid, singer, name, album, duration, image, url }) {
@@ -19,7 +20,7 @@ export default class Song {
       return Promise.resolve(this.lyric)
     }
     return new Promise((resolve, reject) => {
-      getLyric(this.mid).then((res) => {
+      getQQLyric(this.mid).then((res) => {
         if (res.retcode === ERR_OK) {
           this.lyric = Base64.decode(res.lyric)
           resolve(this.lyric)
@@ -68,7 +69,7 @@ export async function getSongs(mids) {
 }
 
 export async function createSongList(songs) {
-  const songlist = songs.map((song) => createSongwithoutPlayUrl(song))
+  const songlist = filterPay(songs).map((song) => createSongwithoutPlayUrl(song))
   console.log("songlist =>", songlist)
   return getSongs(songlist.map((item) => item.mid)).then((data) => {
     // console.log("getSong data ==>", data);

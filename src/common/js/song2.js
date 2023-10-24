@@ -21,7 +21,7 @@ export function getLyric2(mid) {
 
   return new Promise((resolve, reject) => {
     console.log("getLyric进入了ajax分支");
-    const url = "/api/getLyric"; // 注意这里url之前一定要const关键字，否则ajax请求不会发起，因为axios在url为undefined时不会发起请求
+    const url = "/api/getNetEaseLyric"; // 注意这里url之前一定要const关键字，否则ajax请求不会发起，因为axios在url为undefined时不会发起请求
     axios
       .get(url, { params: { id: mid } })
       .then(({ data: { lrc: { lyric }, code } }) => {
