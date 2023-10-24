@@ -2,6 +2,7 @@ import { getLyric } from 'api/song'
 import { ERR_OK } from 'api/config'
 import { Base64 } from 'js-base64'
 import axios from 'axios'
+import { getSongs } from "./song"
 
 export default class Song {
   constructor({ id, mid, singer, name, album, duration, image, url }) {
@@ -44,6 +45,17 @@ export async function getSong(mid) {
   return songurl
 
 
+}
+
+export async function createSongList(songlist) {
+  console.log("Singer detail's songlist =>", songlist)
+  return getSongs(songlist.map((item) => item.mid)).then((data) => {
+    // console.log("getSong data ==>", data);
+    return songlist.map((song) => {
+      song.url = data[song.mid];
+      return song;
+    });
+  });
 }
 
 
