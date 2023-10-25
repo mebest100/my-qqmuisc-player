@@ -52,9 +52,10 @@ const RegisterNetEaseMusicApi = async (app) =>{
         // Register the route.
         app.get(moduleDef.route, async (req, res) => {
          
-
+            const { myCookie } = require('./config')
             let query = Object.assign(              
                 {},    
+                { cookie: myCookie },     
                 { cookie: {} },    // cookie属性必须有（哪怕是空也行），否则会出现搜索歌曲结果不准的问题  
                 req.query,
                 req.body,
