@@ -1,4 +1,4 @@
-const { RegisterGetBanner, RegisterGetRecomendDiscList, RegisterGetSongList, RegisterGetSongUrl } = require("./jsosoApi") 
+const { RegisterQQMusicApi } = require("./jsosoApi") 
 const { RegisterNetEaseMusicApi } = require("./NetEaseApi")
 const headers = {
     referer: 'https://y.qq.com/',
@@ -69,10 +69,7 @@ const RegisterSingerDetail = (app) => {
 const RegisterRoute = (app) => {
     RegisterTestApp(app)
     RegisterSingerDetail(app)
-    RegisterGetBanner(app) 
-    RegisterGetRecomendDiscList(app)
-    RegisterGetSongList(app)
-    RegisterGetSongUrl(app)
+    RegisterQQMusicApi(app)
     RegisterNetEaseMusicApi(app)
 }
 

@@ -2,7 +2,6 @@
 const fs = require('fs')
 const path = require('path')
 const request = require('./util/request')
-const { cookieToJson } = require('./util/index')
 const decode = require('safe-decode-uri-component')
 
 async function getModulesDefinitions(
