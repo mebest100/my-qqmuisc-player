@@ -232,11 +232,11 @@ const createRequest = (method, url, data = {}, options) => {
         if (answer.status === 200) resolve(answer)
         else reject(answer)
       })
-      .catch((err) => {
-        answer.status = 502
-        answer.body = { code: 502, msg: err }
-        reject(answer)
-      })
+      // .catch((err) => {
+      //   answer.status = 502
+      //   answer.body = { code: 502, msg: err }
+      //   reject(answer)
+      // })
   })
 }
 
