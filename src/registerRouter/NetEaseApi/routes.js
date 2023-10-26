@@ -57,7 +57,8 @@ const RegisterNetEaseMusicApi = async (app) =>{
             const { myCookie } = require('./config')
             let query = Object.assign(              
                 {},    
-                { cookie: cookieToJson(decode(myCookie)) },     
+                { cookie: myCookie },     
+                // { cookie: cookieToJson(decode(myCookie)) },     
                 // { cookie: {} },    // cookie属性必须有（哪怕是空也行），否则会出现搜索歌曲结果不准的问题  
                 req.query,
                 req.body,
@@ -67,19 +68,19 @@ const RegisterNetEaseMusicApi = async (app) =>{
             try {
                 const moduleResponse = await moduleDef.module(query, (...params) => {
                     // 参数注入客户端IP
-                    // const obj = [...params]
-                    // let ip = req.ip
+                    const obj = [...params]
+                    let ip = req.ip
 
-                    // if (ip.substr(0, 7) == '::ffff:') {
-                    //     ip = ip.substr(7)
-                    // }
-                    // // console.log(ip)
-                    // obj[3] = {
-                    //     ...obj[3],
-                    //     ip,
-                    // }
-                    // return request(...obj)
-                    return request(...params)
+                    if (ip.substr(0, 7) == '::ffff:') {
+                        ip = ip.substr(7)
+                    }
+                    // console.log(ip)
+                    obj[3] = {
+                        ...obj[3],
+                        ip,
+                    }
+                    return request(...obj)
+                    // return request(...params)
                 })
                 console.log('[OK]', decode(req.originalUrl))
 

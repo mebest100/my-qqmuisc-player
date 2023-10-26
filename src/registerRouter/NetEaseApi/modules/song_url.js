@@ -14,8 +14,8 @@ module.exports = async (query, request) => {
     {
       crypto: "eapi",
       cookie: query.cookie,
-      // proxy: query.proxy,
-      // realIP: query.realIP,
+      proxy: query.proxy,
+      realIP: query.realIP,
       url: "/api/song/enhance/player/url",
     }
   );
