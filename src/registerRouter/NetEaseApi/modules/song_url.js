@@ -32,14 +32,8 @@ module.exports = async (query, request) => {
         data: result,
       },
     };
-  } catch (error) { 
-    res.status(500).send({
-      code: 500,
-      body: {
-        data: null,
-        msg: error,
-}
-    })
-    return
+  } catch (error) {
+    res.status(500).send(res.body);
+    return;
   }
 };

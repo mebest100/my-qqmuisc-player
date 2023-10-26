@@ -17,10 +17,10 @@ export default class Song {
 }
 
 export function getLyric2(mid) {
-  console.log("getLyric执行了");
+  // console.log("getLyric执行了");
 
   return new Promise((resolve, reject) => {
-    console.log("getLyric进入了ajax分支");
+    // console.log("getLyric进入了ajax分支");
     const url = "/api/getNetEaseLyric"; // 注意这里url之前一定要const关键字，否则ajax请求不会发起，因为axios在url为undefined时不会发起请求
     axios
       .get(url, { params: { id: mid } })
@@ -40,7 +40,7 @@ export function getLyric2(mid) {
 }
 
 export async function getSong(mid) {
-  console.log("开始获取网易云音乐歌曲播放链接.....")
+  // console.log("开始获取网易云音乐歌曲播放链接.....")
   let url = "/api/getSongNetEase";
 
   const res = await axios.get(url, {

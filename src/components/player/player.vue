@@ -475,10 +475,10 @@ export default {
       //所以每首歌都可以调用这个getLyric的方法来获得歌词。
       let lyricFunc = null;
       if (this.currentSong.type && this.currentSong.type == 1) {
-        console.log("进入网易歌词接口。。。。");
+        // console.log("进入网易歌词接口。。。。");
         lyricFunc = getLyric2;
       } else {
-        console.log("进入qq歌词接口。。。。");
+        // console.log("进入qq歌词接口。。。。");
         lyricFunc = getLyric3;
       }
 

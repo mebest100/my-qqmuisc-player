@@ -67,18 +67,19 @@ const RegisterNetEaseMusicApi = async (app) =>{
             try {
                 const moduleResponse = await moduleDef.module(query, (...params) => {
                     // 参数注入客户端IP
-                    const obj = [...params]
-                    let ip = req.ip
+                    // const obj = [...params]
+                    // let ip = req.ip
 
-                    if (ip.substr(0, 7) == '::ffff:') {
-                        ip = ip.substr(7)
-                    }
-                    // console.log(ip)
-                    obj[3] = {
-                        ...obj[3],
-                        ip,
-                    }
-                    return request(...obj)
+                    // if (ip.substr(0, 7) == '::ffff:') {
+                    //     ip = ip.substr(7)
+                    // }
+                    // // console.log(ip)
+                    // obj[3] = {
+                    //     ...obj[3],
+                    //     ip,
+                    // }
+                    // return request(...obj)
+                    return request(...params)
                 })
                 console.log('[OK]', decode(req.originalUrl))
 
