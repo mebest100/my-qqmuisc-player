@@ -33,14 +33,8 @@ export const randomPlay = function ({commit}, {list}) {
   commit(types.SET_PLAYING_STATE, true)
 }
 
-import { getSong } from "common/js/song2";
-export const insertSong = async function ({commit, state}, song) {  
-  // if (type==1) {
-  //  const songUrl = await getSong(song.id)
-  //  song.url = songUrl
-  //  song.type = type
-  // }
-  // console.log("插入歌曲==》", song)
+
+export const insertSong =  function ({commit, state}, song) {  
   let playlist = state.playlist.slice()
   let sequenceList = state.sequenceList.slice()
   let currentIndex = state.currentIndex
