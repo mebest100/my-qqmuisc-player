@@ -19,8 +19,13 @@ module.exports = async (query, request) => {
       url: "/api/song/enhance/player/url",
     }
   );
+
+  if (res.body.code != 200 ) {
+    throw new Error(JSON.stringify(res.body))  // 注意这里new Error的参数不能是对象，而必须是字符串！！！
+  }
   // 根据id排序
   const result = res.body.data;
+  console.log("get Song url res==>",res)
   result.sort((a, b) => {
     return ids.indexOf(String(a.id)) - ids.indexOf(String(b.id));
   });
