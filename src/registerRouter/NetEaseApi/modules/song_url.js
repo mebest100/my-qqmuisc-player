@@ -20,8 +20,11 @@ module.exports = async (query, request) => {
     }
   );
 
+  // res.body不能直接取data属性，否则会出现未捕获的异常信息，因为请求失败的时候：res.body就没有data属性
+  // 所以这里需要做个判断，提前捕获到这个异常，并把它抛出去，否则后面的代码就会出现未捕获的异常，很难排查
   if (res.body.code != 200 ) {
-    throw new Error(JSON.stringify(res.body))  // 注意这里new Error的参数不能是对象，而必须是字符串！！！
+    // 注意这里new Error的参数不能是对象，而必须是字符串！！！所以res.body必须通过JSON.stringify转成字符串
+    throw new Error(JSON.stringify(res.body))  
   }
   // 根据id排序
   const result = res.body.data;
