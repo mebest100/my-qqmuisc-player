@@ -3,6 +3,9 @@ const fs = require('fs')
 const path = require('path')
 const request = require('./util/request')
 const decode = require('safe-decode-uri-component')
+const { cookieToJson } = require('./util/index')
+
+
 
 async function getModulesDefinitions(
     modulesPath,
@@ -54,8 +57,8 @@ const RegisterNetEaseMusicApi = async (app) =>{
             const { myCookie } = require('./config')
             let query = Object.assign(              
                 {},    
-                { cookie: myCookie },     
-                { cookie: {} },    // cookie属性必须有（哪怕是空也行），否则会出现搜索歌曲结果不准的问题  
+                { cookie: cookieToJson(decode(myCookie)) },     
+                // { cookie: {} },    // cookie属性必须有（哪怕是空也行），否则会出现搜索歌曲结果不准的问题  
                 req.query,
                 req.body,
                 req.files,
@@ -96,26 +99,26 @@ const RegisterNetEaseMusicApi = async (app) =>{
                     }
                 }
                 res.status(moduleResponse.status).send(moduleResponse.body)
-            } catch (/** @type {*} */ moduleResponse) {
+            } catch ( err) {
                 console.log('[ERR]', decode(req.originalUrl), {
-                    status: moduleResponse.status,
-                    body: moduleResponse.body,
+                    status: err.status,
+                    body: err.body,
                 })
-                if (!moduleResponse.body) {
-                    res.status(404).send({
-                        code: 404,
+                if (!err.body) {
+                    res.status(500).send({
+                        code: 500,
                         data: null,
-                        msg: 'Not Found',
+                        msg: err,
                     })
                     return
                 }
-                if (moduleResponse.body.code == '301')
-                    moduleResponse.body.msg = '需要登录'
+                if (err.body.code == '301')
+                    err.body.msg = '需要登录'
                 if (!query.noCookie) {
-                    res.append('Set-Cookie', moduleResponse.cookie)
+                    res.append('Set-Cookie', err.cookie)
                 }
 
-                res.status(moduleResponse.status).send(moduleResponse.body)
+                res.status(err.status).send(err.body)
             }
         })
     }
