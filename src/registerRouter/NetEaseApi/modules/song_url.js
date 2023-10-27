@@ -1,5 +1,6 @@
 // 歌曲链接
 module.exports = async (query, request) => {
+  console.log('查询歌曲链接的请求进来了.....');
   query.cookie.os = "pc";
   const ids = query.id.split(",");
   const data = {
