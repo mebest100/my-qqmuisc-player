@@ -66,6 +66,17 @@ export function savePlay(song) {
   return songs
 }
 
+export function delSongfromPlayHistory({index,song}) {
+  let songs = storage.get(PLAY_KEY, [])
+  if (songs[index].mid == song.mid) {
+    songs.splice(index,1)
+    storage.set(PLAY_KEY, songs)    
+  } 
+  
+  return songs
+  
+}
+
 export function loadPlay() {
   return storage.get(PLAY_KEY, [])
 }

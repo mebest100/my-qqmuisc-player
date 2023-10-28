@@ -19,7 +19,7 @@
         </scroll>
         <scroll ref="playlist" class="list-scroll" v-if="currentIndex===1" :data="playHistory">
           <div class="list-inner">
-            <song-list :songs="playHistory" @select="selectSong"></song-list>
+            <song-list :songs="playHistory" @select="selectSong" @del="delSongFromPlayHistory"></song-list>
           </div>
         </scroll>
       </div>
@@ -107,9 +107,13 @@
           list
         })
       },
+      delSongFromPlayHistory(index,song) {
+           this.delFromPlayHistory({index,song})
+      },
       ...mapActions([
         'insertSong',
-        'randomPlay'
+        'randomPlay',
+        'delFromPlayHistory'
       ])
     },
     components: {
