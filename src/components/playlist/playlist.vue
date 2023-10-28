@@ -194,7 +194,7 @@ export default {
           font-size $font-size-medium
           color $color-text-l
         .clear
-          extend-click()
+          // extend-click()
           .icon-clear
             font-size $font-size-medium
             color $color-text-d

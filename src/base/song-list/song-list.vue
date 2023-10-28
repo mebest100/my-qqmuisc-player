@@ -1,5 +1,9 @@
 <template>
   <div class="song-list">
+    <span v-if="showDeleteIcon" class="clear">
+      <i class="icon-clear"></i>
+    </span>
+     <div class="clear-float"></div> <!-- 清除浮动 -->
     <ul>
       <li
         @click="selectItem(song, index)"
@@ -13,7 +17,12 @@
           <h2 class="name">{{ song.name }}</h2>
           <p class="desc">{{ getDesc(song) }}</p>
         </div>
-        <span v-if="showDeleteIcon" @click.stop="delFromPlayHistory(index,song)" class="delete">
+
+        <span
+          v-if="showDeleteIcon"
+          @click.stop="delFromPlayHistory(index, song)"
+          class="delete"
+        >
           <i class="icon-delete"></i>
         </span>
       </li>
@@ -33,9 +42,9 @@ export default {
       default: false,
     },
     showDeleteIcon: {
-       type: Boolean,
-       default: false,
-    }
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     selectItem(item, index) {
@@ -56,9 +65,9 @@ export default {
         return index + 1;
       }
     },
-    delFromPlayHistory(index,song) {
-      this.$emit("del",index,song)
-    }
+    delFromPlayHistory(index, song) {
+      this.$emit("del", index, song);
+    },
   },
 };
 </script>
@@ -68,6 +77,13 @@ export default {
 @import '~common/stylus/mixin';
 
 .song-list {
+  .clear {
+    float: right;
+  }
+  .clear-float {
+    clear:both
+    }
+
   .item {
     display: flex;
     align-items: center;
@@ -125,7 +141,7 @@ export default {
 
     .delete {
       .icon-delete {
-        color: $color-theme;        
+        color: $color-theme;
       }
     }
   }
