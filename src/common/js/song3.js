@@ -49,8 +49,11 @@ export async function getSong(mid) {
 }
 
 export async function createSongList(songlist) {
-  console.log("Singer detail's songlist =>", songlist)
-  return getSongs(filterPay(songlist).map((item) => item.mid)).then((data) => {
+  console.log("Singer detail's songlist =>", songlist);
+  const filteredSongs =
+    filterPay(songlist).length > 0 ? filterPay(songlist) : songlist;
+  console.log("fiteredSongs ==>", filteredSongs);
+  return getSongs(filteredSongs.map((item) => item.mid)).then((data) => {
     // console.log("getSong data ==>", data);
     return songlist.map((song) => {
       song.url = data[song.mid];
