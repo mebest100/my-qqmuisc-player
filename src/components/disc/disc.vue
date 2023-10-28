@@ -37,7 +37,7 @@ export default {
       }
       getSongList(this.disc.content_id).then((res) => {
         if (res.result === 100) {
-          this._normalizeSongs(res.data.songlist.slice(0, 90)).then(
+          this._normalizeSongs(res.data.songlist).then(
             (resultSongs) => {
               this.songs = resultSongs;
             }
