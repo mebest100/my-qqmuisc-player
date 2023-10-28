@@ -1,36 +1,48 @@
 <template>
   <div class="song-list">
-    <span v-if="showDeleteIcon" class="clear">
+    <span v-if="showDeleteIcon" class="clear" @click="showConfirm">
       <i class="icon-clear"></i>
     </span>
-     <div class="clear-float"></div> <!-- 清除浮动 -->
-    <ul>
-      <li
-        @click="selectItem(song, index)"
-        class="item"
-        v-for="(song, index) in songs"
-      >
-        <div class="rank" v-show="rank">
-          <span :class="getRankCls(index)" v-text="getRankText(index)"></span>
-        </div>
-        <div class="content">
-          <h2 class="name">{{ song.name }}</h2>
-          <p class="desc">{{ getDesc(song) }}</p>
-        </div>
-
-        <span
-          v-if="showDeleteIcon"
-          @click.stop="delFromPlayHistory(index, song)"
-          class="delete"
+    <div class="clear-float"></div>
+    <!-- 清除浮动 -->
+    <div>
+      <ul>
+        <li
+          @click="selectItem(song, index)"
+          class="item"
+          v-for="(song, index) in songs"
         >
-          <i class="icon-delete"></i>
-        </span>
-      </li>
-    </ul>
+          <div class="rank" v-show="rank">
+            <span :class="getRankCls(index)" v-text="getRankText(index)"></span>
+          </div>
+          <div class="content">
+            <h2 class="name">{{ song.name }}</h2>
+            <p class="desc">{{ getDesc(song) }}</p>
+          </div>
+
+          <span
+            v-if="showDeleteIcon"
+            @click.stop="delFromPlayHistory(index, song)"
+            class="delete"
+          >
+            <i class="icon-delete"></i>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <confirm
+      ref="confirm"
+      @confirm="clearPlayHistory"
+      text="是否清空所有播放历史"
+      confirmBtnText="清空"
+    ></confirm>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import Confirm from "@/base/confirm/confirm";
+import { mapActions } from "vuex";
 export default {
   props: {
     songs: {
@@ -68,6 +80,16 @@ export default {
     delFromPlayHistory(index, song) {
       this.$emit("del", index, song);
     },
+    showConfirm() {
+      this.$refs.confirm.show();
+    },
+    ...mapActions(['clearPlayHistory'])
+  },
+  // 注意：confirm组件必须在components这里注册，
+  // 否则不但confirm组件无法显示，还会导致全局组件内部元素无法显示也无法点击
+  // 还会报错：this.$refs.confirm.show is not a function
+  components: {
+    Confirm,
   },
 };
 </script>
@@ -80,9 +102,10 @@ export default {
   .clear {
     float: right;
   }
+
   .clear-float {
-    clear:both
-    }
+    clear: both;
+  }
 
   .item {
     display: flex;

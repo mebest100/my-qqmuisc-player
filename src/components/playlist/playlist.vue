@@ -30,7 +30,7 @@
             </li>
           </transition-group>
         </scroll>
-        <!-- 添加个区到队列 -->
+        <!-- 添加歌曲到队列 -->
         <div class="list-operate">
           <div class="add" @click="addSong">
             <i class="icon-add"></i>

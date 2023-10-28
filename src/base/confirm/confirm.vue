@@ -1,6 +1,6 @@
 <template>
   <transition name="confirm-fade">
-    <div class="confirm" v-show="showFlag" @click.stop>
+    <div class="confirm" v-show="isShow" @click.stop>
       <div class="confirm-wrapper">
         <div class="confirm-content">
           <p class="text">{{text}}</p>
@@ -32,15 +32,15 @@
     },
     data() {
       return {
-        showFlag: false
+        isShow: false
       }
     },
     methods: {
       show() {
-        this.showFlag = true
+        this.isShow = true
       },
       hide() {
-        this.showFlag = false
+        this.isShow = false
       },
       cancel() {
         this.hide()
@@ -74,7 +74,7 @@
       top: 50%
       left: 50%
       transform: translate(-50%, -50%)
-      z-index: 999
+      // z-index: 0
       .confirm-content
         width: 270px
         border-radius: 13px
