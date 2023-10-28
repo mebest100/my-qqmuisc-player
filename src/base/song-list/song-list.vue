@@ -13,7 +13,7 @@
           <h2 class="name">{{ song.name }}</h2>
           <p class="desc">{{ getDesc(song) }}</p>
         </div>
-        <span @click.stop="delFromPlayHistory(index,song)" class="delete">
+        <span v-if="showDeleteIcon" @click.stop="delFromPlayHistory(index,song)" class="delete">
           <i class="icon-delete"></i>
         </span>
       </li>
@@ -32,6 +32,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    showDeleteIcon: {
+       type: Boolean,
+       default: false,
+    }
   },
   methods: {
     selectItem(item, index) {
