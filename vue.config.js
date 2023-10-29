@@ -112,7 +112,7 @@ module.exports = {
   configureWebpack: {
     resolve: {
       extensions: [".js", ".css", ".vue"],
-      alias: {
+      alias: {      
         assets: "@/assets",
         static: "@/static",
         components: "@/components",

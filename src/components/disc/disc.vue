@@ -1,14 +1,15 @@
 <template>
   <transition name="slide">
     <music-list :title="title" :bg-image="bgImage" :songs="songs"></music-list>
-  </transition>
+        <div>requestFail : {{ requestFail }}</div>
+      </transition>
 </template>
 
 <script type="text/ecmascript-6">
 import MusicList from "components/music-list/music-list";
 import { getSongList } from "api/recommend";
 import { mapGetters } from "vuex";
-import { createSongList, createSong } from "common/js/song";
+import { createSongList  } from "common/js/song";
 
 
 export default {
@@ -19,8 +20,9 @@ export default {
     bgImage() {
       return this.disc.cover;
     },
-    ...mapGetters(["disc"]),
+    ...mapGetters(["disc",'requestFail']),
   },
+ 
   data() {
     return {
       songs: [],
@@ -38,7 +40,7 @@ export default {
       getSongList(this.disc.content_id).then((res) => {
         if (res.result === 100) {
           this._normalizeSongs(res.data.songlist).then(
-            (resultSongs) => {
+            (resultSongs) => {          
               this.songs = resultSongs;
             }
           );
@@ -64,7 +66,8 @@ export default {
     },
   },
   components: {
-    MusicList,
+    MusicList
+    
   },
 };
 </script>

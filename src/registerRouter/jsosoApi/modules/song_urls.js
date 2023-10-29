@@ -1,6 +1,9 @@
 const request = require('../util/request');
 const Cache = require('../util/cache')
 
+
+
+ 
 // 根据音乐mid获取歌曲播放地址
 module.exports = async (req, res) => {
     const uin = '956581739'
@@ -53,7 +56,7 @@ module.exports = async (req, res) => {
         return res.json(cacheData)
 
     } catch (error) {
-        console.log("error=>", error)
+        console.log("error=>", error)        
         return res.status(500).send({
             code: 500,
             data: null,
