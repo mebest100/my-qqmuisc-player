@@ -76,7 +76,7 @@ export async function createSongList(songs) {
     return songlist.map((song) => {
       song.url = data[song.mid];
       return song;
-    });
+    }).filter(item => item.url != undefined);
   });
 }
 

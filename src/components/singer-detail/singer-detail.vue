@@ -40,7 +40,7 @@ export default {
         console.log("getSingerDetail2 res==>", res);
         if (res.code === ERR_OK) {
           // this.songs = res.result.songs
-          this._normalizeSongs(res.result.songs.slice(0, 100)).then(
+          this._normalizeSongs(res.result.songs).then(
             (resultSongs) => {
               this.songs = resultSongs;
             }

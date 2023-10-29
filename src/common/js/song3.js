@@ -55,10 +55,12 @@ export async function createSongList(songlist) {
   console.log("fiteredSongs ==>", filteredSongs);
   return getSongs(filteredSongs.map((item) => item.mid)).then((data) => {
     // console.log("getSong data ==>", data);
-    return songlist.map((song) => {
-      song.url = data[song.mid];
-      return song;
-    });
+    return songlist
+      .map((song) => {
+        song.url = data[song.mid];
+        return song;
+      })
+      .filter((item) => item.url != undefined);;
   });
 }
 
