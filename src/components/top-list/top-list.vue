@@ -9,7 +9,7 @@
   import {getMusicList} from 'api/rank'
   import {ERR_OK} from 'api/config'
   import {mapGetters} from 'vuex'
-  import {createSong} from 'common/js/song'
+  import { createSongList } from 'common/js/song'
 
   export default {
     computed: {
@@ -43,25 +43,29 @@
         }
         getMusicList(this.topList.id).then((res) => {
           if (res.code === ERR_OK) {
-            this.songs = this._normalizeSongs(res.songlist)
+            console.log("toplist's songlist=>",res.songlist)
+             this._normalizeSongs(res.songlist.map(item=>item.data)).then(resultSongs=> {
+              this.songs = resultSongs
+             })
           }
         })
       },
-      _normalizeSongs(list) {
-        let ret = []
-        list.forEach((item) => {
-          const musicData = item.data
-          if (musicData.songid && musicData.albummid) {
-             createSong(musicData).then(res => {
-              // 收费歌曲获取不到url过滤
-              if (res.url.length > 50) {
-                 ret.push(res)
-              }               
-            })
-            // ret.push(createSong(musicData))
-          }
-        })
-        return ret
+      _normalizeSongs(songlist) {
+        // let ret = []
+        // list.forEach((item) => {
+        //   const musicData = item.data
+        //   if (musicData.songid && musicData.albummid) {
+        //      createSong(musicData).then(res => {
+        //       // 收费歌曲获取不到url过滤
+        //       if (res.url.length > 50) {
+        //          ret.push(res)
+        //       }               
+        //     })
+        //     
+        //   }
+        // })
+        // return ret
+        return createSongList(songlist)
       }
     },
     components: {
