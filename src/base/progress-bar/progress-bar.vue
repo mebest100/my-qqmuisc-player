@@ -24,8 +24,8 @@ export default {
       default: 0,
     },
   },
-  created () {
-    this.touch={}
+  created() {
+    this.touch = {};
   },
   methods: {
     progressTouchStart(e) {
@@ -35,9 +35,16 @@ export default {
       if (!this.touch.initiated) {
         return;
       }
+      // clientX, pageX是指相对于整个浏览器窗口的横向坐标
+      // 而offsetX是指相对于事件源元素的横向坐标，事件源元素就是绑定事件的那个元素。
       const btnOffset =
+         // 所以这里pageX相当于鼠标移动位置相对于浏览器最左边的横向坐标
+         // checkOffset计算出的进度条父级元素相对于浏览器最左边的横向坐标
+         // 所以这两项一减就得到鼠标移动也就是按钮相对于进度条最左边的偏移值，也就是拖动量，也就是btnOffset的意义
+         // 所以这里的btnOffset是关键中的关键！！！
         e.touches[0].pageX -
         this.checkOffset(this.$refs.progressBar, "offsetLeft");
+        // offsetWidth是为了限制按钮拖动的最大距离，这个距离不能大于进度条本身的最大宽度
       const offsetWidth = Math.min(
         this.$refs.progressBar.clientWidth - progressBtnWidth,
         Math.max(0, btnOffset)
