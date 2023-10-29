@@ -18,96 +18,96 @@ module.exports = {
     progress: false, // 禁止启动时显示编译日志
     before: (app) => RegisterRoute(app),
     port: 8082,
-    proxy: {     
-      // "/api/getBanner": {
-      //   target: "http://127.0.0.1:3300/recommend/banner",
-      //   changeOrigin: true, //允许跨域,
-      //   pathRewrite: {
-      //     "^/api/getBanner": "",
-      //   },
-      // },
+    // proxy: {     
+    //   // "/api/getBanner": {
+    //   //   target: "http://127.0.0.1:3300/recommend/banner",
+    //   //   changeOrigin: true, //允许跨域,
+    //   //   pathRewrite: {
+    //   //     "^/api/getBanner": "",
+    //   //   },
+    //   // },
 
-      // "/api/getRecomendDiscList": {
-      //   target: "http://127.0.0.1:3300/recommend/playlist/u",
-      //   changeOrigin: true, //允许跨域,
-      //   pathRewrite: {
-      //     "^/api/getRecomendDiscList": "",
-      //   },
-      // },
+    //   // "/api/getRecomendDiscList": {
+    //   //   target: "http://127.0.0.1:3300/recommend/playlist/u",
+    //   //   changeOrigin: true, //允许跨域,
+    //   //   pathRewrite: {
+    //   //     "^/api/getRecomendDiscList": "",
+    //   //   },
+    //   // },
 
-      // "/api/getSongList": {
-      //   target: "http://127.0.0.1:3300/songlist",
-      //   changeOrigin: true, //允许跨域,
-      //   pathRewrite: {
-      //     "^/api/getSongList": "",
-      //   },
-      // },
+    //   // "/api/getSongList": {
+    //   //   target: "http://127.0.0.1:3300/songlist",
+    //   //   changeOrigin: true, //允许跨域,
+    //   //   pathRewrite: {
+    //   //     "^/api/getSongList": "",
+    //   //   },
+    //   // },
 
-      // "/api/getSongNetEase": {
-      //   //vue.config.js中路由匹配是从上到下的，所以api/getSongNetEase必须放在api/getSong的前面，否则会出现404错误
-      //   //因为一旦匹配到了api/getSong了，后面的路由规则就不会继续匹配了
-      //   target: "http://127.0.0.1:3900",
-      //   changeOrigin: true, //允许跨域,
-      //   pathRewrite: {
-      //     "^/api/getSongNetEase": "/song/url",
-      //   },
-      // },
+    //   // "/api/getSongNetEase": {
+    //   //   //vue.config.js中路由匹配是从上到下的，所以api/getSongNetEase必须放在api/getSong的前面，否则会出现404错误
+    //   //   //因为一旦匹配到了api/getSong了，后面的路由规则就不会继续匹配了
+    //   //   target: "http://127.0.0.1:3900",
+    //   //   changeOrigin: true, //允许跨域,
+    //   //   pathRewrite: {
+    //   //     "^/api/getSongNetEase": "/song/url",
+    //   //   },
+    //   // },
 
-         // "/api/getNetEaseLyric": { // 获取网易音乐接口歌词
-      //   target: "http://127.0.0.1:3900",
-      //   changeOrigin: true, //允许跨域,
-      //   pathRewrite: {
-      //     "^/api/getNetEaseLyric": "/lyric",
-      //   },
-      // },
+    //      // "/api/getNetEaseLyric": { // 获取网易音乐接口歌词
+    //   //   target: "http://127.0.0.1:3900",
+    //   //   changeOrigin: true, //允许跨域,
+    //   //   pathRewrite: {
+    //   //     "^/api/getNetEaseLyric": "/lyric",
+    //   //   },
+    //   // },
 
-           // "/api/NetEaseSearch": {
-      //   target: "http://127.0.0.1:3900",
-      //   // target: "https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp",
-      //   changeOrigin: true, //允许跨域,
-      //   // headers: headers,
-      //   pathRewrite: {
-      //     "^/api/NetEaseSearch": "/search",
-      //   },
-      // },
+    //        // "/api/NetEaseSearch": {
+    //   //   target: "http://127.0.0.1:3900",
+    //   //   // target: "https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp",
+    //   //   changeOrigin: true, //允许跨域,
+    //   //   // headers: headers,
+    //   //   pathRewrite: {
+    //   //     "^/api/NetEaseSearch": "/search",
+    //   //   },
+    //   // },
 
 
 
-      // "/api/getSong": {
-      //   target: "http://127.0.0.1:3300/song/urls",       
-      //   changeOrigin: true, //允许跨域,
-      //   pathRewrite: {
-      //     "^/api/getSong": "",
-      //   },
-      // },
+    //   // "/api/getSong": {
+    //   //   target: "http://127.0.0.1:3300/song/urls",       
+    //   //   changeOrigin: true, //允许跨域,
+    //   //   pathRewrite: {
+    //   //     "^/api/getSong": "",
+    //   //   },
+    //   // },
 
    
 
-      "/api/getQQlyric": { // 获取qq音乐接口歌词
-        target: "https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg",
-        changeOrigin: true, //允许跨域,
-        headers: {
-          referer: "https://c.y.qq.com/",
-          host: "c.y.qq.com",
-        },
-        pathRewrite: {
-          "/api/getQQlyric": "",  // 这里pathRewrite不能写错，否则会报404错误
-        },
-      },
+    //   // "/api/getQQlyric": { // 获取qq音乐接口歌词
+    //   //   target: "https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg",
+    //   //   changeOrigin: true, //允许跨域,
+    //   //   headers: {
+    //   //     referer: "https://c.y.qq.com/",
+    //   //     host: "c.y.qq.com",
+    //   //   },
+    //   //   pathRewrite: {
+    //   //     "/api/getQQlyric": "",  // 这里pathRewrite不能写错，否则会报404错误
+    //   //   },
+    //   // },
 
  
-      // "/api/getSingerDetail": {
-      //   // target: "https://u.y.qq.com/cgi-bin/musics.fcg",     
-      //   target: "http://127.0.0.1:3800",
-      //   changeOrigin: true, //允许跨域,  
-      //   headers: headers2,
-      //   // 使用3800代理就不能启用pathRewrite，否则会产生404错误
-      //   // pathRewrite: {
-      //   //   "^/api/getSingerDetail": "", 
-      //   // },
-      // },
+    //   // "/api/getSingerDetail": {
+    //   //   // target: "https://u.y.qq.com/cgi-bin/musics.fcg",     
+    //   //   target: "http://127.0.0.1:3800",
+    //   //   changeOrigin: true, //允许跨域,  
+    //   //   headers: headers2,
+    //   //   // 使用3800代理就不能启用pathRewrite，否则会产生404错误
+    //   //   // pathRewrite: {
+    //   //   //   "^/api/getSingerDetail": "", 
+    //   //   // },
+    //   // },
      
-    },
+    // },
   },
   configureWebpack: {
     resolve: {
