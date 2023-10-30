@@ -6,7 +6,7 @@ import Analysis from "components/detailTest/Analysis.vue";
 
 Vue.use(Router)
 
-const Recommend = (resolve) => {
+const Recommend = (resolve) => { // 按需加载组件
   import('components/recommend/recommend').then((module) => {
     resolve(module)
   })

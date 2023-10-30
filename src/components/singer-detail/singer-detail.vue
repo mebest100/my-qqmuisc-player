@@ -36,7 +36,7 @@ export default {
         this.$router.push("/singer");
         return;
       }
-      getSingerDetail2(this.singer.id).then((res) => {
+      getSingerDetail2(this.singer.id).then((res) => { // 根据歌手id获取歌手专辑详情
         console.log("getSingerDetail2 res==>", res);
         if (res.code === ERR_OK) {
           // this.songs = res.result.songs
