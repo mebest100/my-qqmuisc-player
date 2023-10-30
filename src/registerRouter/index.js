@@ -1,5 +1,6 @@
 const { RegisterQQMusicApi } = require("./jsosoApi");
 const { RegisterNetEaseMusicApi } = require("./NetEaseApi");
+
 const headers = {
   referer: "https://y.qq.com/",
   origin: "https://y.qq.com/",
@@ -71,7 +72,7 @@ const RegisterSingerDetail = (app) => {
 
 // 获取歌词
 const RegisterGetQQLyric = (app) => {
-  app.get("/api/getQQlyric", (req, res) => {
+  app.get("/api/getQQlyric", (req, res) => {    
     let url = "https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg";
     let data = Object.assign({}, commonParams, {
       songmid: req.query.mid,
@@ -85,6 +86,7 @@ const RegisterGetQQLyric = (app) => {
     return new Promise((resolve, reject) => {
       axios
         .get(url, {
+          headers: headers,
           params: data,
         })
         .then((response) => {

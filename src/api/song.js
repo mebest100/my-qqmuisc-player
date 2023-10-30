@@ -1,4 +1,4 @@
-import {commonParams} from './config'
+import {commonParams2} from './config'
 import axios from 'axios'
 
 
@@ -20,7 +20,7 @@ export function getQQLyric(mid) {
 // export function getQQLyric(mid) { 
 //   let url = "https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg";
 //   // let url = '/api/getQQlyric'
-//   let data = Object.assign({}, commonParams, {
+//   let data = Object.assign({}, commonParams2, {
 //     songmid: mid,
 //     pcachetime: +new Date(),
 //     platform: 'yqq',
