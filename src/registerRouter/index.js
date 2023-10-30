@@ -75,6 +75,7 @@ const RegisterGetQQLyric = (app) => {
   app.get("/api/getQQlyric", (req, res) => {    
     let url = "https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg";
     let data = Object.assign({}, commonParams, {
+      // 注意：请求参数中是否有mid字段，而且能否根据这个字段获取到歌曲mid，否则歌词也获取不到
       songmid: req.query.mid,
       pcachetime: +new Date(),
       platform: "yqq",
@@ -86,7 +87,7 @@ const RegisterGetQQLyric = (app) => {
     return new Promise((resolve, reject) => {
       axios
         .get(url, {
-          headers: headers,
+          headers: headers, // 注意必须要有headers，否则获取不到歌词数据
           params: data,
         })
         .then((response) => {
