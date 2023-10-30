@@ -1,10 +1,10 @@
 <template>
 <!-- 歌手页面 -->
-  <scroll class="listview" :data="data" :listenScroll="listenScroll" ref="listview"
+  <scroll class="listview" :singers="singers" :listenScroll="listenScroll" ref="listview"
           :probeType="probeType" @scroll="scroll">
     <!-- 歌手列表 -->
     <ul>
-      <li v-for="(group, index) in data" :key="index" class="list-group" ref="listGroup">
+      <li v-for="(group, index) in singers" :key="index" class="list-group" ref="listGroup">
         <h2 class="list-group-title">{{ group.title }}</h2>
         <ul>
           <li v-for="(item, index) in group.items" :key="index" class="list-group-item"
@@ -19,6 +19,7 @@
     <div @touchstart="onShortcutTouchStart" class="list-shortcut"
          @touchmove.stop.prevent="onShortcutTouchMove">
       <ul>
+        <!-- data-index是自定义html属性 -->
         <li v-for="(item, index) in shortcutList" :key="index" class="item"
             :data-index="index" :class="{'current': currentIndex === index}">
             {{ item }}</li>
@@ -38,15 +39,15 @@ const ANCHOR_HEIGHT = 18
 const TITLE_HEIGHT = 30
 
 export default {
-  props: {
-    data: {
+  props: { // 父组件传递属性
+    singers: {
       type: Array,
       default: function() {
         return []
       }
     }
   },
-  data() {
+  data() { // 子组件本地属性
     return {
       scrollY: -1,
       currentIndex: 0,
@@ -65,7 +66,7 @@ export default {
   computed: {
     // 返回右侧快速入口A-Z
     shortcutList() {
-      return this.data.map((group) => {
+      return this.singers.map((group) => {
         return group.title.substr(0, 1)
       })
     },
@@ -74,7 +75,7 @@ export default {
       if (this.scrollY > 0) {
         return ''
       }
-      return this.data[this.currentIndex] ? this.data[this.currentIndex].title : ''
+      return this.singers[this.currentIndex] ? this.singers[this.currentIndex].title : ''
     }
   },
   methods: {
@@ -114,7 +115,8 @@ export default {
       } else if (index > this.listHeight.length - 2) {
         index = this.listHeight.length - 2
       }
-      this.scrollY = -this.listHeight[index]
+   
+       this.scrollY = -this.listHeight[index]
       this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0)
     },
     // 计算每个分组的所在的高度
@@ -135,7 +137,7 @@ export default {
     }
   },
   watch: {
-    data() {
+    singers() {
       setTimeout(() => {
         this._calulateHeight()
       }, 20)

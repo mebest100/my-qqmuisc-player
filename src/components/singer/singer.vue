@@ -1,6 +1,7 @@
 <template>
   <div class="singer" ref="singer">
-    <list-view @select="selectSinger" :data="singers" ref="list"></list-view>
+    <!-- singers是经过排序后的歌手列表：热门歌手在最前，后面的是排序后的字母歌手 -->
+    <list-view @select="selectSinger" :singers="singers" ref="list"></list-view>
     <router-view></router-view>
   </div>
 </template>
