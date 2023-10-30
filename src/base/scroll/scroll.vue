@@ -62,9 +62,9 @@ export default {
       })
       // 当需要监听滑动的时候
       if (this.listenScroll) {
-        let me = this
+        let self = this
         this.scroll.on('scroll', pos => {
-          me.$emit('scroll', pos)
+          self.$emit('scroll', pos)
         })
       }
       // 上拉到底部刷新数据

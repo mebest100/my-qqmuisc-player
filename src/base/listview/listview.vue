@@ -16,10 +16,13 @@
       </li>
     </ul>
     <!-- 右侧入口 -->
+    <!-- onShortcutTouchStart 对应鼠标点击时左边列表滚动
+    onShortcutTouchMove对应鼠标滑动时左边列表滚动 -->
     <div @touchstart="onShortcutTouchStart" class="list-shortcut"
          @touchmove.stop.prevent="onShortcutTouchMove">
       <ul>
-        <!-- data-index是自定义html属性 -->
+        <!-- data-index是自定义html属性, 左右联动实际是通过currentIndex来控制的，
+        因为只有currentIndex === index时字母才高亮 -->
         <li v-for="(item, index) in shortcutList" :key="index" class="item"
             :data-index="index" :class="{'current': currentIndex === index}">
             {{ item }}</li>
@@ -81,18 +84,21 @@ export default {
   methods: {
     // 点击
     onShortcutTouchStart(e) {
-      // 获取点击的元素的index值
+      // 获取右侧快速入口的data-index属性的值，也就是歌手列表的索引值
       let anchorIndex = getData(e.target, 'index')
       // 获取滑动起点的Y坐标值
-      let firstTouch = e.touches[0]
-      this.touch.y1 = firstTouch.pageY
-      this.touch.anchorIndex = anchorIndex
-      this._scrollTo(this.touch.anchorIndex)
+      let firstTouch = e.touches[0] // 计算滑动距离，首先需要有一个touch对象
+      this.touch.y1 = firstTouch.pageY // touch.y1对应当前函数不是必须的，但是对于计算鼠标移动距离却是需要的，
+      // 因为需要touch.y1标注鼠标移动的初始位置
+
+      this.touch.anchorIndex = anchorIndex // 构造this.touch.anchorIndex的目的也是记录滑动起点对应的dom元素索引
+      this._scrollTo(this.touch.anchorIndex)  // 因为这样当鼠标移动结束时，就能增量计算dom元素的索引
     },
     // 移动
     onShortcutTouchMove(e) {
-      let firstTouch = e.touches[0]
-      this.touch.y2 = firstTouch.pageY
+      let endTouch = e.touches[0]
+      this.touch.y2 = endTouch.pageY // 记录鼠标滑动结束的位置
+
       // 移动的距离 / 每个元素的高度 = 移动了几个元素
       let distance = (this.touch.y2 - this.touch.y1) / ANCHOR_HEIGHT | 0
       let anchorIndex = parseInt(this.touch.anchorIndex) + distance
@@ -116,7 +122,8 @@ export default {
         index = this.listHeight.length - 2
       }
    
-       this.scrollY = -this.listHeight[index]
+       this.scrollY = -this.listHeight[index] 
+       // scrollToElement方法继承自scroll.vue组件
       this.$refs.listview.scrollToElement(this.$refs.listGroup[index], 0)
     },
     // 计算每个分组的所在的高度
@@ -137,7 +144,7 @@ export default {
     }
   },
   watch: {
-    singers() {
+    singers() { // 歌手数据就绪时，才计算左边歌手列表的高度
       setTimeout(() => {
         this._calulateHeight()
       }, 20)
@@ -150,7 +157,7 @@ export default {
         this.currentIndex = 0
         return
       }
-      // 在中间部分滚动
+      // 在两个相邻歌手分组之间滚动
       for (let i = 0; i < listHeight.length; i++) {
         let height1 = listHeight[i]
         let height2 = listHeight[i + 1]
