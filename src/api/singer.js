@@ -4,7 +4,7 @@ const getSecuritySign = require("./sign");
 import axios from "axios";
 import { ERR_OK } from "api/config";
 
-// 获取歌手排行榜
+// 获取歌手列表
 export function getSingerList() {
   const url = "https://c.y.qq.com/v8/fcg-bin/v8.fcg";
 
@@ -18,8 +18,9 @@ export function getSingerList() {
     needNewCode: 0,
     platform: "yqq",
   });
-  let resp = jsonp(url, data, options);
-  console.log("json-singerlist------", resp);
+  let resp = jsonp(url, data, options); // 注意这里jsonp请求返回的resp是一个promise对象
+  resp.then(res=> {console.log("json-singerlist------",res)})
+  
   return resp;
 }
 
