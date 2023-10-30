@@ -43,6 +43,7 @@ const RegisterSingerDetail = (app) => {
       comm: { ct: 24, cv: 0 },
       singerSongList: {
         method: "GetSingerSongList",
+        // singerMid是根据歌手id获取歌手专辑详情
         param: { order: 1, singerMid: req.query.id, begin: 0, num: 100 },
         module: "musichall.song_list_server",
       },

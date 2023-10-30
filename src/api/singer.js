@@ -46,13 +46,14 @@ export function getSingerList() {
 
 
 // 使用RegisterSingerDetail的情况
-export function getSingerDetail2(singerId) {  
+export function getSingerDetail2(singerId) {
+  // singerId是根据歌手id获取歌手专辑详情
 
   const url = "/api/getSingerDetail";
 
   return axios
-    .get(url, { 
-      params: { id: singerId }
+    .get(url, {
+      params: { id: singerId },
     })
     .then((response) => {
       console.log(response.data);
@@ -73,8 +74,8 @@ export function getSingerDetail2(singerId) {
         result = data;
       }
 
-      console.log("result ==>", result)
-     return Promise.resolve(result); // 注意这里必须有return，否则对方使用回调函数时就会取不到值：报undefined错误
+      console.log("result ==>", result);
+      return Promise.resolve(result); // 注意这里必须有return，否则对方使用回调函数时就会取不到值：报undefined错误
     });
 }
 

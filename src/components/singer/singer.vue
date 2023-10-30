@@ -34,6 +34,7 @@
       },
       selectSinger(singer) {
         this.$router.push({
+          // 跳转SingerDetail组件
           path: `/singer/${singer.id}`
         })
         this.setSinger(singer)
