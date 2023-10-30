@@ -18,7 +18,7 @@ export function getSingerList() {
     platform: "yqq",
   });
   let resp = jsonp(url, data, options);
-  console.log("json-singerlist----------------------------------");
+  console.log("json-singerlist------", resp);
   return resp;
 }
 
