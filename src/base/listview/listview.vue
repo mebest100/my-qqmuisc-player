@@ -1,6 +1,6 @@
 <template>
 <!-- 歌手页面 -->
-  <scroll class="listview" :singers="singers" :listenScroll="listenScroll" ref="listview"
+  <scroll class="listview" :data="singers" :listenScroll="listenScroll" ref="listview"
           :probeType="probeType" @scroll="scroll">
     <!-- 歌手列表 -->
     <ul>
