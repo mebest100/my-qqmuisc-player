@@ -65,7 +65,7 @@ export default {
     if (this.autoPlay) {
       this._play();
     }
-  },  
+  },
   methods: {
     _setSliderWidth(isResize) {
       this.children = this.$refs.sliderGroup.children;
@@ -93,7 +93,11 @@ export default {
         momentum: false,
         bounce: false,
         probeType: 2,
-        slide: true,
+        slide: {
+          speed: 600,
+          autoplay: true,
+          interval: 5000,
+        },
       });
 
       this.slider.on("slideWillChange", (page) => {
@@ -108,7 +112,6 @@ export default {
           this._play();
         }
       });
-      
     },
     _initDots() {
       this.dots = new Array(this.children.length);
@@ -120,7 +123,7 @@ export default {
         if (pageIndex == 4) {
           pageIndex = 0;
         }
-      }    
+      }
     },
   },
 };
