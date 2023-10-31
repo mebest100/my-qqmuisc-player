@@ -25,7 +25,7 @@
     <div class="bg-layer" ref="layer"></div>
     <!-- 歌曲列表 -->
     <scroll
-      :data="songs"
+      :dataInfo="songs"
       :probe-type="probeType"
       :listen-scroll="listenScroll"
       @scroll="scroll"

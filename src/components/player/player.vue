@@ -44,7 +44,7 @@
           <scroll
             class="middle-r"
             ref="lysrcList"
-            :data="currentLyric && currentLyric.lines"
+            :dataInfo="currentLyric && currentLyric.lines"
           >
             <div class="lyric-wrapper">
               <div v-if="currentLyric">

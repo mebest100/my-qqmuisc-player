@@ -85,13 +85,13 @@ export default {
         });
       }
       // 上拉到底部刷新数据
-      if (this.pullup) {
+      if (this.pullup) { // suggest组件传递此属性
         this.scroll.on("scrollEnd", () => {
           // console.log(this.scroll.y)
           // console.log('max:' + (this.scroll.maxScrollY))
           //判断是否下拉到底，<=号右边的括号不能少
           if (this.scroll.y <= this.scroll.maxScrollY + 50) {
-            this.$emit("scrollToEnd");
+            this.$emit("scrollToEnd"); // 向suggest组件传递此事件
             // this.scroll.maxScrollY += 200
           }
         });
@@ -99,7 +99,7 @@ export default {
       // 是否滑动的时候隐藏键盘
       if (this.beforeScroll) {
         this.scroll.on("beforeScrollStart", () => {
-          this.$emit("beforeScroll");
+          this.$emit("beforeScroll"); // 向suggest组件传递此事件
         });
       }
       console.log("scroll obj==>" , this.scroll)

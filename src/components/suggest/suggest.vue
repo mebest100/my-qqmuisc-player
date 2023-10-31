@@ -4,7 +4,7 @@
     @beforeScroll="listScroll"
     :beforeScroll="beforeScroll"
     :pullup="pullup"
-    :data="result"
+    :dataInfo="result"
     class="suggest"
     ref="suggest"
   >

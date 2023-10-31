@@ -15,7 +15,7 @@
           </h1>
         </div>
         <!-- 中间列表 -->
-        <scroll ref="listContent" :data="sequenceList" class="list-content" :refreshDelay="120">
+        <scroll ref="listContent" :dataInfo="sequenceList" class="list-content" :refreshDelay="120">
           <transition-group name="list" tag="ul">
             <li :key="item.id" ref="listItem" class="item" v-for="(item,index) in sequenceList"
                 @click="selectItem(item,index)">

@@ -12,12 +12,12 @@
         <span class="text">随机播放全部</span>
       </div>
       <div class="list-wrapper" ref="listWrapper">
-        <scroll ref="favoriteList" class="list-scroll" v-if="currentIndex===0" :data="favoriteList">
+        <scroll ref="favoriteList" class="list-scroll" v-if="currentIndex===0" :dataInfo="favoriteList">
           <div class="list-inner">
             <song-list :songs="favoriteList" @select="selectSong"></song-list>
           </div>
         </scroll>
-        <scroll ref="playlist" class="list-scroll" v-if="currentIndex===1" :data="playHistory">
+        <scroll ref="playlist" class="list-scroll" v-if="currentIndex===1" :dataInfo="playHistory">
           <div class="list-inner">
             <song-list :songs="playHistory" @select="selectSong" 
             @del="delSongFromPlayHistory" :showDeleteIcon=true></song-list>
