@@ -20,6 +20,7 @@ import { addClass } from "common/js/dom";
 import BScroll from "@better-scroll/core";
 import Slide from "@better-scroll/slide";
 
+
 export default {
   name: "slider",
   props: {
@@ -85,20 +86,22 @@ export default {
       this.$refs.sliderGroup.style.width = width + "px";
     },
     _initSlider() {
-      BScroll.use(Slide);
+      BScroll.use(Slide);      
       this.slider = new BScroll(this.$refs.slider, {
         click: true,
         scrollX: true,
         scrollY: false,
         momentum: false,
         bounce: false,
-        probeType: 2,
+        probeType: 2,       
         slide: {
           speed: 600,
           autoplay: true,
           interval: 5000,
         },
       });
+
+   
 
       this.slider.on("slideWillChange", (page) => {
         console.log("new slide index=>", page.pageX);
@@ -113,6 +116,7 @@ export default {
         }
       });
     },
+
     _initDots() {
       this.dots = new Array(this.children.length);
     },
