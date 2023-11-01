@@ -496,7 +496,7 @@ export default {
           } else {
             this.currentLyric = null
             this.playingLyric = lyric;
-            addNoLyricStyle();
+            this.addNoLyricStyle();
           }
         })
         // .catch(() => {
@@ -614,7 +614,8 @@ export default {
     // 没歌词的时候添加css样式，让提示垂直居中
     addNoLyricStyle() {
       console.log("addNoLyricStyle方法执行了。。。。");
-      this.$refs.lyricWrapper.style.top = "50%";
+      this.$refs.lyricWrapper.style.top = "50%";     
+      this.$refs.Nolyric.style.fontSize = "32px";
     },
     ...mapMutations({
       setFullScreen: "SET_FULL_SCREEN",
