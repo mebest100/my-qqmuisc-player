@@ -55,7 +55,15 @@
                   v-for="(line, index) in currentLyric.lines"
                   :key="index"
                 >
-                  {{ line.txt }}
+                  {{ currentLyric }}
+                </p>
+              </div>
+              <div v-else>
+                <p
+                  ref="Nolyric"
+                  class="text"                
+                >
+                 此歌曲暂无歌词
                 </p>
               </div>
             </div>
