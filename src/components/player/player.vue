@@ -494,7 +494,7 @@ export default {
               this.currentLyric.play();
             }
           } else {
-            this.currentLyric = null
+            this.currentLyric = null //关键： 这里必须置空，否则currentLyric又会带上上次歌曲的歌词。
             this.playingLyric = lyric;
             this.addNoLyricStyle();
           }
