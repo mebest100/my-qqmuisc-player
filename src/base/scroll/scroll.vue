@@ -73,9 +73,9 @@ export default {
         pullUpLoad: true,
       });
 
-      // this.scroll.on("pullingUp", () => {
-      //   this.refresh();
-      // });
+      this.scroll.on("pullingUp", () => {
+        this.refresh();
+      });
 
       console.log("scroll obj==>" , this.scroll) // 初始化后打印scroll对象属性
       // 当需要监听滑动的时候
