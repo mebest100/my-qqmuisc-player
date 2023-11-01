@@ -46,7 +46,7 @@
             ref="lysrcList"
             :dataInfo="currentLyric && currentLyric.lines"
           >
-            <div class="lyric-wrapper">
+            <div class="lyric-wrapper" ref="lyricWrapper">
               <div v-if="currentLyric">
                 <p
                   ref="lyricLine"
@@ -487,6 +487,7 @@ export default {
 
       lyricFunc(this.currentSong.mid)
         .then((lyric) => {
+          console.log("player vue get lyric", lyric);
           if (lyric.length > 8) {
             this.currentLyric = new Lyric(lyric, this.handleLyric);
             if (this.playing) {
@@ -495,13 +496,14 @@ export default {
           } else {
             this.currentLyric = null
             this.playingLyric = lyric;
+            addNoLyricStyle();
           }
         })
-        .catch(() => {
-          this.currentLyric = null;
-          this.playingLyric = "";
-          this.currentLineNum = 0;
-        });
+        // .catch(() => {
+        //   this.currentLyric = null;
+        //   this.playingLyric = "";
+        //   this.currentLineNum = 0;
+        // });
     },
     // 当前音乐是第几句歌词
     handleLyric({ lineNum, txt }) {
@@ -608,6 +610,11 @@ export default {
     // 显示播放列表
     showPlaylist() {
       this.$refs.playlist.show();
+    },
+    // 没歌词的时候添加css样式，让提示垂直居中
+    addNoLyricStyle() {
+      console.log("addNoLyricStyle方法执行了。。。。");
+      this.$refs.lyricWrapper.style.top = "50%";
     },
     ...mapMutations({
       setFullScreen: "SET_FULL_SCREEN",
@@ -808,8 +815,8 @@ export default {
         overflow: hidden;
         position: relative;
 
-        .lyric-wrapper {  
-          position: absolute;          
+        .lyric-wrapper {
+          position: absolute;
           width: 100%;
           margin: 0 auto;
           overflow: hidden;
