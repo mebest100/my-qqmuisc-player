@@ -59,12 +59,7 @@
                 </p>
               </div>
               <div v-else>
-                <p
-                  ref="Nolyric"
-                  class="text"                
-                >
-                 此歌曲暂无歌词
-                </p>
+                <p ref="Nolyric" class="text">此歌曲暂无歌词</p>
               </div>
             </div>
           </scroll>
@@ -810,8 +805,10 @@ export default {
         width: 100%;
         height: 100%;
         overflow: hidden;
+        position: relative;
 
-        .lyric-wrapper {
+        .lyric-wrapper {  
+          position: absolute;          
           width: 80%;
           margin: 0 auto;
           overflow: hidden;
