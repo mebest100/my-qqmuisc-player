@@ -52,19 +52,18 @@ export default {
   mounted() {
     // 初始化
     this._initScroll();
-    this.$watch("dataInfo", (newVal, oldVal) => {
-      if (newVal.length > 0) {
-        this.$nextTick(() => {
-          this._initScroll();
-          // this.scroll.refresh();
-        });
-      }
-    });
+    // this.$watch("dataInfo", (newVal, oldVal) => {
+    //   if (newVal.length > 0) {
+    //     this.$nextTick(() => {          
+    //       this.refresh();
+    //     });
+    //   }
+    // });
   },
   methods: {
     // 初始化
     _initScroll() {
-      // BScroll.use(myPullUp);
+      BScroll.use(myPullUp);    
       if (!this.$refs.wrapper) {
         return;
       }
@@ -74,9 +73,11 @@ export default {
         pullUpLoad: true,
       });
 
-      this.scroll.on("scrollStart", () => {
-        this.scroll.refresh();
-      });
+      // this.scroll.on("pullingUp", () => {
+      //   this.refresh();
+      // });
+
+      console.log("scroll obj==>" , this.scroll) // 初始化后打印scroll对象属性
       // 当需要监听滑动的时候
       if (this.listenScroll) {
         let self = this;
@@ -102,7 +103,7 @@ export default {
           this.$emit("beforeScroll"); // 向suggest组件传递此事件
         });
       }
-      console.log("scroll obj==>" , this.scroll)
+      
     },
     // 方法代理
     enable() {
