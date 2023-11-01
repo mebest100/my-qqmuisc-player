@@ -27,7 +27,7 @@ export function getLyric3(mid) {
        console.log("解密后的qq歌词==》", lyric);
         resolve(lyric)
       } else {
-        reject('no lyric')
+        resolve("此歌曲暂无歌词！");
       }
     })
   })

@@ -484,9 +484,13 @@ export default {
 
       lyricFunc(this.currentSong.mid)
         .then((lyric) => {
-          this.currentLyric = new Lyric(lyric, this.handleLyric);
-          if (this.playing) {
-            this.currentLyric.play();
+          if (lyric.length > 8) {
+            this.currentLyric = new Lyric(lyric, this.handleLyric);
+            if (this.playing) {
+              this.currentLyric.play();
+            }
+          } else {
+            this.playingLyric = lyric;
           }
         })
         .catch(() => {
