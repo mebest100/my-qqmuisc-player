@@ -55,10 +55,10 @@
                   v-for="(line, index) in currentLyric.lines"
                   :key="index"
                 >
-                  {{ currentLyric }}
+                  {{ line.txt }}
                 </p>
               </div>
-              <div v-else>
+              <div v-else-if="currentLyric == null">
                 <p ref="Nolyric" class="text">此歌曲暂无歌词</p>
               </div>
             </div>
@@ -448,7 +448,7 @@ export default {
       if (!this.playing) {
         this.togglePlaying();
       }
-      // 切换进度的时候更新歌词滚动的进度
+      // 切换进度的时候更新歌词滚动的进度==》切换歌词进度 重要！！！
       if (this.currentLyric) {
         this.currentLyric.seek(currentTime * 1000);
       }
@@ -493,6 +493,7 @@ export default {
               this.currentLyric.play();
             }
           } else {
+            this.currentLyric = null
             this.playingLyric = lyric;
           }
         })
@@ -809,7 +810,7 @@ export default {
 
         .lyric-wrapper {  
           position: absolute;          
-          width: 80%;
+          width: 100%;
           margin: 0 auto;
           overflow: hidden;
           text-align: center;

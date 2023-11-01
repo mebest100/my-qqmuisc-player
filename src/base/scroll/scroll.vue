@@ -52,13 +52,13 @@ export default {
   mounted() {
     // 初始化
     this._initScroll();
-    // this.$watch("dataInfo", (newVal, oldVal) => {
-    //   if (newVal.length > 0) {
-    //     this.$nextTick(() => {          
-    //       this.refresh();
-    //     });
-    //   }
-    // });
+    this.$watch("dataInfo", (newVal, oldVal) => {
+      if (newVal.length > 0) {
+        this.$nextTick(() => {          
+          this.refresh();
+        });
+      }
+    });
   },
   methods: {
     // 初始化
