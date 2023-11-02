@@ -45,39 +45,19 @@ export const randomPlay = function ({ commit }, { list }) {
 export const insertSong = function ({ commit, state }, song) {
   let playlist = state.playlist.slice();
   let sequenceList = state.sequenceList.slice();
-  let currentIndex = state.currentIndex;
-  // 记录当前歌曲
-  let currentSong = playlist[currentIndex];
-  // 查找当前列表中是否有待插入的歌曲并返回其索引
+  let currentIndex;
+  // 总体原则：新歌曲插入到播放列表的第一个索引位置
   let fpIndex = findIndex(playlist, song);
-  // 因为是插入歌曲，所以索引+1
-  currentIndex++;
-  // 插入这首歌到当前索引位置
-  playlist.splice(currentIndex, 0, song);
-  // console.log("插入歌曲后,playlist==>", playlist)
-  // 如果已经包含了这首歌
-  if (fpIndex > -1) {
-    // 如果当前插入的序号大于列表中的序号
-    if (currentIndex > fpIndex) {
-      playlist.splice(fpIndex, 1);
-      currentIndex--;
-    } else {
-      playlist.splice(fpIndex + 1, 1);
-    }
+  if (fpIndex == -1) {
+    currentIndex = 0;
+    playlist.splice(currentIndex, 0, song);
+  } else {
+    currentIndex = fpIndex;
   }
 
-  let currentSIndex = findIndex(sequenceList, currentSong) + 1;
-
   let fsIndex = findIndex(sequenceList, song);
-
-  sequenceList.splice(currentSIndex, 0, song);
-
-  if (fsIndex > -1) {
-    if (currentSIndex > fsIndex) {
-      sequenceList.splice(fsIndex, 1);
-    } else {
-      sequenceList.splice(fsIndex + 1, 1);
-    }
+  if (fsIndex == -1) {
+    sequenceList.splice(0, 0, song);
   }
 
   commit(types.SET_PLAYLIST, playlist);
