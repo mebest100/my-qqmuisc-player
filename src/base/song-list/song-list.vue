@@ -30,7 +30,7 @@
     </ul>
 
     <confirm
-      ref="confirm"
+      ref="confirm1"
       @confirm="clearPlayHistory"
       text="是否清空所有播放历史"
       confirmBtnText="清空"
@@ -93,7 +93,7 @@ export default {
         this.$refs.confirm2.show();
         return;
       }
-      this.$refs.confirm.show();
+      this.$refs.confirm1.show();
     },
     ...mapActions(["clearPlayHistory"]),
   },

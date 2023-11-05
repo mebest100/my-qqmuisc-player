@@ -118,8 +118,11 @@ export const delFromPlayHistory = function ({ commit }, { index, song }) {
 };
 
 export const clearPlayHistory = function ({ commit }) {
-  commit(types.SET_PLAY_HISTORY, []);
   clearAllFromPlayHistory();
+  commit(types.SET_PLAY_HISTORY, []);  
+  commit(types.SET_PLAYLIST,[])
+  commit(types.SET_PLAYING_STATE,false)
+  
 };
 
 export const saveFavoriteList = function ({ commit }, song) {
