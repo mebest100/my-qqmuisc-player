@@ -97,8 +97,8 @@ export default {
         limit: this.perpage,
         offset: (this.page - 1) * this.perpage,
       };
-      search(data.query,data.limit,data.offset).then((res) => {
-        if (res.code === HTTP_OK && res.result.songs.length >0) {
+      search(data.query, data.limit, data.offset).then((res) => {
+        if (res.code === HTTP_OK && res.result.songs.length > 0) {
           this._normalizeSongs(res.result.songs).then((resp) => {
             this.result = this.result.concat(resp);
           });
@@ -109,10 +109,10 @@ export default {
     },
     // 判断全部歌曲是否已经加载完毕
     checkMore(data) {
-      console.log("checkmore收到数据==》",data)
+      console.log("checkmore收到数据==》", data);
       // let songs = data.songs;
-      if ( 
-        // data.songCount == 0  
+      if (
+        // data.songCount == 0
         this.result.length >= data.songCount
         // (this.page - 1) * this.perpage + songs.length > data.songCount
       ) {
@@ -120,8 +120,8 @@ export default {
       }
     },
     // 搜索的加载更多
-    searchMore() {   
-      console.log("searchMore 执行了。。。。。")
+    searchMore() {
+      console.log("searchMore 执行了。。。。。");
       if (!this.hasMore) {
         console.log("全部歌曲已加载完毕，没有更多记录了");
         return;
@@ -132,13 +132,13 @@ export default {
         limit: this.perpage,
         offset: (this.page - 1) * this.perpage,
       };
-      search(data.query,data.limit,data.offset).then((res) => {
+      search(data.query, data.limit, data.offset).then((res) => {
         // 注意：如果这里发生了异常，那么后面的this.checkMore是不会执行的，这个是关键！
         // 所以这里使用hasOwnProperty方法来判断对象是否有某属性，从而不会触发异常
-        if (res.code === HTTP_OK && res.result.hasOwnProperty('songs')) {
+        if (res.code === HTTP_OK && res.result.hasOwnProperty("songs")) {
           this._normalizeSongs(res.result.songs).then((resp) => {
             this.result = this.result.concat(resp);
-          });          
+          });
         }
         this.checkMore(res.result);
       });
@@ -162,7 +162,8 @@ export default {
       return item.name;
     },
     // 选择歌手或歌曲
-    async selectItem(event, item) {
+    selectItem(event, item) {
+      const self = this;
       event.stopPropagation();
       // if (item.type === TYPE_SINGER) {
       //   let singer = new Singer({
@@ -177,10 +178,11 @@ export default {
       //   this.insertSong(item);
       // }
       // 仅仅在选中歌曲时才发起ajax请求获取歌曲播放链接
-      const songUrl = await getSong(item.mid);
-      item.url = songUrl;      
-      this.insertSong(item);
-      this.$emit("select");
+      getSong(item.mid).then((data) => {
+        item.url = data;
+        self.insertSong(item);
+        self.$emit("select");
+      });
     },
     listScroll() {
       this.$emit("listScroll");
