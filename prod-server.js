@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
 const RegisterRoute = require("./src/registerRouter");
-const open = require('open');
 const history = require("connect-history-api-fallback");
 
 
@@ -30,7 +29,7 @@ module.exports = (() => {
 				console.log(`分配新端口${newport}，Listening on http://localhost:${newport}\n`);
             }
             console.log(`${newport}端口可用，Listening on http://localhost:${newport}\n`);
-            open(`http://localhost:${newport}`,"chrome")
+          
         });
     });
 })();
