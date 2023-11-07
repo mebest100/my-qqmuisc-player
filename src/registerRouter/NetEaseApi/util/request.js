@@ -8,10 +8,11 @@ const tunnel = require('tunnel')
 const fs = require('fs')
 const path = require('path')
 const tmpPath = require('os').tmpdir()
-const anonymous_token = fs.readFileSync(
-  path.resolve(tmpPath, './anonymous_token'),
-  'utf-8',
-)
+const anonymous_token = ''
+// const anonymous_token = fs.readFileSync(
+//   path.resolve(tmpPath, './anonymous_token'),
+//   'utf-8',
+// )
 const { URLSearchParams, URL } = require('url')
 // request.debug = true // 开启可看到更详细信息
 
